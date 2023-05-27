@@ -1,0 +1,49 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+# Spawners are not almighy: they do not allow for a fine-tuned configuration of how they work.
+# For example, they do not allow to shorten the cooldown between spawns depending on the number of players present in a radius, or other such finer conditions.
+# This can be solved by making a mob have the same functionality of a spawner, since mobs can check for such things easily.
+#
+# The mob below is one such example. The relevant values are expressed as variables, and by modifying those values and the config file one can effectively modify how the spawner behaves in different situations.
+
+
+#    __  __           _           
+#   |  \/  |         | |          
+#   | \  / |   ___   | |__    ___ 
+#   | |\/| |  / _ \  | '_ \  / __|
+#   | |  | | | (_) | | |_) | \__ \
+#   |_|  |_|  \___/  |_.__/  |___/
+#                                 
+#                                 
+Frame_Spawner:
+  Type: ARMOR_STAND
+  Options:
+    Marker: true
+    Invisible: true
+    Small: true
+    Despawn: persistent
+  Skills:
+  - setvariable{var=caster.cooldownmax;val=100} @self ~onSpawn
+  - setvariable{var=caster.warmupmax;val=20} @self ~onSpawn
+  - setvariable{var=caster.cooldown;val=100} @self ~onSpawn
+  - setvariable{var=caster.warmup;val=20} @self ~onSpawn
+  - setvariable{var=caster.mobcap;val=3} @self ~onSpawn
+  - skill{s=[
+    - skill{s=[
+      - variablesubtract{var=caster.cooldown;amount=<skill.targets>} @PIR{r=20} ?targets{a=>0}
+      - skill{s=[
+        - summon{t=Template_BaseMob}
+        - setvariable{var=caster.cooldown;val=<caster.var.cooldownmax>}
+        - setvariable{var=caster.warmup;val=<caster.var.warmupmax>}
+        ]} ?variableinrange{var=caster.cooldown;val=<1}
+      ]} ?variableinrange{var=caster.warmup;val=<1}
+    - variablesubtract{var=caster.warmup;amount=1} @self ?!variableinrange{var=caster.warmup;val=<1} ?variableinrange{var=caster.mobcap;val=><caster.children.size>}
+    - setvariable{var=caster.warmup;val=<caster.var.warmupmax>} ?!variableinrange{var=caster.mobcap;val=><caster.children.size>} ?!variableinrange{var=caster.warmup;val=<caster.warmupmax>}
+    - holo{text="<caster.var.cooldown> <caster.var.warmup> <caster.children.size>";stay=2} @selflocation{y=1}
+    ]} @self ~onTimer:1 ?playersinradius{r=20;a=>0}
