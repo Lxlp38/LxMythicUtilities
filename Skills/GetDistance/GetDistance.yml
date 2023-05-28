@@ -1,0 +1,57 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# The skills in this configuration can be used to store into a variable the value of the distance between the caster of the skill and the inherited targeter.
+#
+#
+# Description of the skills:
+# Utility_GetDistance -> get the actual distance between the caster and the target, and stores it inside <skill.var.Utility_GetDistance>
+# Utility_GetDistance_Raw -> get the distance between the caster and the target without squaring it, and stores it inside <skill.Utility_GetDistance_Raw>. Usefull if you are concerned about performances
+#
+# Utility_GetDistance_x -> get the distance between the caster and the target on the x axis and stored it inside <skill.var.Utility_GetDistance_x>
+# Utility_GetDistance_y -> get the distance between the caster and the target on the y axis and stored it inside <skill.var.Utility_GetDistance_y>
+# Utility_GetDistance_z -> get the distance between the caster and the target on the z axis and stored it inside <skill.var.Utility_GetDistance_z>
+#
+# Utility_GetDistance_Weighted -> get the distance between the caster and the target and stores it inside <skill.var.Utility_GetDistance_Weighted>.
+#                                 in the formula, the distance on every axis will first be multiplied by a skill parameter (the weight)
+#                                 The parameters are as follow:
+#                                   x -> the value for which the x distance will be multiplied
+#                                   y -> the value for which the y distance will be multiplied
+#                                   z -> the value for which the z distance will be multiplied
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+Utility_GetDistance:
+  Skills:
+  - setvariable{var=skill.Utility_GetDistance;type=FLOAT;val=sqrt((<caster.l.x.double> - <target.l.x.double>)^2 + (<caster.l.y.double> - <target.l.y.double>)^2 + (<caster.l.z.double> - <target.l.z.double>)^2)}
+
+Utility_GetDistance_Raw:
+  Skills:
+  - setvariable{var=skill.Utility_GetDistance_Raw;type=FLOAT;val=(<caster.l.x.double> - <target.l.x.double>)^2 + (<caster.l.y.double> - <target.l.y.double>)^2 + (<caster.l.z.double> - <target.l.z.double>)^2}
+
+Utility_GetDistance_x:
+  Skills:
+  - setvariable{var=skill.Utility_GetDistance_x;type=FLOAT;val=abs(<caster.l.x.double> - <target.l.x.double>)}
+
+Utility_GetDistance_y:
+  Skills:
+  - setvariable{var=skill.Utility_GetDistance_y;type=FLOAT;val=abs(<caster.l.y.double> - <target.l.y.double>)}
+
+Utility_GetDistance_z:
+  Skills:
+  - setvariable{var=skill.Utility_GetDistance_z;type=FLOAT;val=abs(<caster.l.z.double> - <target.l.z.double>)}
+
+Utility_GetDistance_Weighted:
+  Skills:
+  - setvariable{var=skill.Utility_GetDistance_Weighted;type=FLOAT;val=sqrt(((<caster.l.x.double> - <target.l.x.double>)*<skill.x>)^2 + ((<caster.l.y.double> - <target.l.y.double>)*<skill.y>)^2 + ((<caster.l.z.double> - <target.l.z.double>)*<skill.z>)^2)}
