@@ -1,0 +1,30 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# Just give this skill to any parrot mob to not make it completely unsuitable for any self-respecting production server
+#
+# ExampleMob:
+# Type: PARROT
+# Skills:
+# - skill{s=Utility_ParrotFix;sync=true} @self ~onDamaged
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+Utility_ParrotFix:
+  Conditions:
+  - damageamount{a=>1000} true
+  Skills:
+  - potion{type=POISON;d=0;force=true} @self
+  - cancelevent @self
