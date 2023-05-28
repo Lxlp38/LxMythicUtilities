@@ -1,0 +1,47 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# The following skills can be used to switch on and off the ai of a mob, with different modalities depending on the skill used.
+#
+# While they are not complex, they should be usefull in saving a bit of time and to be used directly via a meg scripted keyframe
+#
+#
+# Description of the skills:
+# - Utility_ToggleAI_On --> once used, the ai of the mob is enabled
+# - Utility_ToggleAI_Off --> once used, the ai of the mob is turned off
+# - Utility_ToggleAI --> once used with a `d` parameter, turns off the ai of the mob and reenables it after d ticks have elapsed
+# - Utility_ToggleAI_Force --> same usage as ToggleAI, but the AI of the mob will be forced to be off for the duration of the skill
+
+
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+Utility_ToggleAI_On:
+  Skills:
+  - setAI{ai=true} @self
+
+Utility_ToggleAI_Off:
+  Skills:
+  - setAI{ai=false} @self
+
+Utility_ToggleAI:
+  Skills:
+  - setAI{ai=false}
+  - delay <skill.d>
+  - setAI{ai=true}
+
+Utility_ToggleAI_Force:
+  Skills:
+  - aura{d=<skill.d>;i=1;onStart=[  - setAI{ai=false} ];onTick=[  - setAI{ai=false} ];onEnd=[  - setAI{ai=true} ]}
