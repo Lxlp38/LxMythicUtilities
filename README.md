@@ -15,4 +15,4 @@ A couple of QOL features for all your MythicMobs needs.
 - [Repeat](/Skills/Repeat.yml)
 - [Strings](/Skills/Strings)
   - [GenerateProgressBar](/Skills/Strings/GenerateProgressBar/GenerateProgressBar.yml)
-- [ToggleAI](/Skills/Strings/ToggleAI)
+- [ToggleAI](/Skills/ToggleAI)
