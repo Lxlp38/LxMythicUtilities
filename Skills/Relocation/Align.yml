@@ -1,0 +1,23 @@
+Utility_Relocation_Align_Ground:
+  Conditions:
+  - inblock{b=AIR} orElseCast Utility_Relocation_Undo
+  Skills:
+  - teleport @selflocation{y=<skill.var.precision|-1>}
+  - skill:Utility_Relocation_Align_Ground
+
+
+
+Utility_Relocation_Align_SeaFloor:
+  Conditions:
+  - inblock{b=WATER,KELP,KELP_PLANT,SEAGRASS,TALL_SEAGRASS} castinstead Utility_Relocation_Align_SeaFloor_2
+  - inblock{b=AIR} orElseCast Utility_Relocation_Undo
+  Skills:
+  - teleport @selflocation{y=<skill.var.precision|-1>}
+  - skill:Utility_Relocation_Align_SeaFloor
+
+Utility_Relocation_Align_SeaFloor_2:
+  Conditions:
+  - inblock{b=WATER,KELP,KELP_PLANT,SEAGRASS,TALL_SEAGRASS} orElseCast Utility_Relocation_Undo
+  Skills:
+  - teleport @selflocation{y=<skill.var.precision|-1>}
+  - skill:Utility_Relocation_Align_SeaFloor_2

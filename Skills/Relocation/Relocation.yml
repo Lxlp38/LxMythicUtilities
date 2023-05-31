@@ -1,0 +1,8 @@
+Utility_Relocation_Undo:
+  Skills:
+  - teleport @selflocation{y=-<skill.var.precision|-1>}
+
+Utility_Relocation:
+  Skills:
+  - setvariable{var=skill.precision;type=FLOAT;val=<skill.precision>} @self
+  - vskill{s=<skill.ss>}
