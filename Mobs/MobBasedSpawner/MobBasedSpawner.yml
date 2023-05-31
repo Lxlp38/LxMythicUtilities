@@ -38,7 +38,7 @@ Frame_Spawner:
     - skill{s=[
       - variablesubtract{var=caster.cooldown;amount=<skill.targets>} @PIR{r=20} ?targets{a=>0}
       - skill{s=[
-        - summon{t=Template_BaseMob}
+        - summon{t=SKELETON}
         - setvariable{var=caster.cooldown;val=<caster.var.cooldownmax>}
         - setvariable{var=caster.warmup;val=<caster.var.warmupmax>}
         ]} ?variableinrange{var=caster.cooldown;val=<1}
