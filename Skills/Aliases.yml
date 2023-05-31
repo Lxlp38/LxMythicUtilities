@@ -1,0 +1,9 @@
+ToggleAI:
+  Skills:
+  - skill:Utility_ToggleAI
+ToggleAI_Off:
+  Skills:
+  - skill:Utility_ToggleAI_Off
+ToggleAI_On:
+  Skills:
+  - skill:Utility_ToggleAI_On

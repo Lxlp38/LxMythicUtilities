@@ -1,8 +1,59 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# This skill allows to lower a mob until it is aligned with a given plane
+#
+# Parameters:
+# - m: the mode of the Alignment. can be GROUND or SEAFLOOR
+# - p: the number of blocks the entity will be moved on the y axis every iteration. Using a positive value will invert the effect. Defaults to -1.
+# - d: the number of ticks to wait between each iteration. Defaults to 0.
+#
+# Example:
+# skill:Utility_Relocation_Align{m=SEAFLOOR;p=-1;d=0} @self ~onSpawn
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+Utility_Relocation_Align:
+  Skills:
+  - setvariable{var=skill.precision;type=FLOAT;val=<skill.p>} @self
+  - setvariable{var=skill.delay;val=<skill.d>} @self
+  - setvariable{var=skill.mode;type=STRING;val=<skill.m>} @self
+  - skill:Utility_Relocation_Align_Switch
+
+Utility_Relocation_Align_Switch:
+  Conditions:
+  - variableequals{var=skill.mode;val=GROUND}   castinstead Utility_Relocation_Align_Ground
+  - variableequals{var=skill.mode;val=Ground}   castinstead Utility_Relocation_Align_Ground
+  - variableequals{var=skill.mode;val=ground}   castinstead Utility_Relocation_Align_Ground
+  - variableequals{var=skill.mode;val=G}        castinstead Utility_Relocation_Align_Ground
+  - variableequals{var=skill.mode;val=g}        castinstead Utility_Relocation_Align_Ground
+
+  - variableequals{var=skill.mode;val=SEAFLOOR} castinstead Utility_Relocation_Align_SeaFloor
+  - variableequals{var=skill.mode;val=Seafloor} castinstead Utility_Relocation_Align_SeaFloor
+  - variableequals{var=skill.mode;val=seafloor} castinstead Utility_Relocation_Align_SeaFloor
+  - variableequals{var=skill.mode;val=SF}       castinstead Utility_Relocation_Align_SeaFloor
+  - variableequals{var=skill.mode;val=sf}       castinstead Utility_Relocation_Align_SeaFloor
+
+
+
 Utility_Relocation_Align_Ground:
   Conditions:
   - inblock{b=AIR} orElseCast Utility_Relocation_Undo
   Skills:
   - teleport @selflocation{y=<skill.var.precision|-1>}
+  - delay <skill.var.delay|0>
   - skill:Utility_Relocation_Align_Ground
 
 
@@ -13,6 +64,7 @@ Utility_Relocation_Align_SeaFloor:
   - inblock{b=AIR} orElseCast Utility_Relocation_Undo
   Skills:
   - teleport @selflocation{y=<skill.var.precision|-1>}
+  - delay <skill.var.delay|0>
   - skill:Utility_Relocation_Align_SeaFloor
 
 Utility_Relocation_Align_SeaFloor_2:
@@ -20,4 +72,5 @@ Utility_Relocation_Align_SeaFloor_2:
   - inblock{b=WATER,KELP,KELP_PLANT,SEAGRASS,TALL_SEAGRASS} orElseCast Utility_Relocation_Undo
   Skills:
   - teleport @selflocation{y=<skill.var.precision|-1>}
+  - delay <skill.var.delay|0>
   - skill:Utility_Relocation_Align_SeaFloor_2
