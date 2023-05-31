@@ -11,7 +11,7 @@ A couple of QOL features for all your MythicMobs needs.
 - [MobFixes](/Skills/MobFixes)
   - [ParrotFix](/Skills/MobFixes/ParrotFix.yml)
 - [Relocation](/Skills/Relocation)
-  - [Align] (/Skills/Relocation/Align.yml)
+  - [Align](/Skills/Relocation/Align.yml)
 - [Repeat](/Skills/Repeat.yml)
 - [Strings](/Skills/Strings)
   - [GenerateProgressBar](/Skills/Strings/GenerateProgressBar/GenerateProgressBar.yml)
