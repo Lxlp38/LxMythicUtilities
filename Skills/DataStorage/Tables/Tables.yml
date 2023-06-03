@@ -1,33 +1,56 @@
 Utility_Table:
   Skills:
   - setvariable{var=skill.mode;type=STRING;val=<skill.mode>} @self
-  - skill:Utility_Table_Create ?!variableisset{var=caster.Utility_Table} @self
+  - skill:Utility_Table_Create @self ?!variableisset{var=caster.Utility_Table} @self
+  #- skill:Utility_Table_Size @self
   - skill:Utility_Table_GetIndex @self
   - skill:Utility_Table_SwitchMode @self
 Utility_Table_SwitchMode:
   Conditions:
+  - variableisset{var=skill.mode} true
+  - variableequals{var=skill.mode;val=NULL} false
   - variableequals{var=skill.mode;val=SET} castinstead Utility_Table_Set
   - variableequals{var=skill.mode;val=GET} castinstead Utility_Table_Get
   - variableequals{var=skill.mode;val=REMOVE} castinstead Utility_Table_Remove
+  - variableequals{var=skill.mode;val=RESIZE} castinstead Utility_Table_Resize
+  - variableequals{var=skill.mode;val=FOREACH} castinstead Utility_Table_ForEach
+  - variableequals{var=skill.mode;val=GETFIRSTKEY} castinstead Utility_Table_GetFirstKey
+  - variableequals{var=skill.mode;val=MOVETOLAST} castinstead Utility_Table_MoveToLast
+  - variableequals{var=skill.mode;val=GETKEYATINDEX} castinstead Utility_Table_GetKeyAtIndex
+  - variableequals{var=skill.mode;val=SORT} castinstead Utility_Table_Sort
 
+
+
+# Unsets the result variable, so that no incorrect value is wrongly returned
 Utility_Table_UnsetResult:
   Skills:
   - variableunset{var=skill.return}
+  - variableunset{var=skill.returntype}
 
+
+# Creates the Table
 Utility_Table_Create:
   Skills:
-  - setvariable{var=caster.Utility_Table;type=STRING;val=";"} @self
+  - setvariable{var=caster.Utility_Table;type=STRING;val=";"}
+  - setvariable{var=caster.Utility_Table_Size;val=0}
 
+
+# Add a key-value pait to the Table
 Utility_Table_Add:
   Skills:
   - setvariable{var=caster.Utility_Table;type=STRING;val="<caster.var.Utility_Table><skill.key>=<skill.value>;"} @self
+  - variableadd{var=caster.Utility_Table_Size;a=1}
 
+
+# Sets the value of the specified key to the specified value
 Utility_Table_Set:
   Conditions:
   - variableequals{var=skill.key_start;val=-1} castinstead Utility_Table_Add
   Skills:
   - setvariable{var=caster.Utility_Table;type=STRING;val="%string_substring_0,<skill.var.key_end>_<caster.var.Utility_Table>%=<skill.value>%string_substring_<skill.var.value_end>_<caster.var.Utility_Table>%"} @self
 
+
+# Returns the value and type of the selected key
 Utility_Table_Get:
   Conditions:
   - variableequals{var=skill.key_start;val=-1} castinstead Utility_Table_UnsetResult
@@ -36,21 +59,120 @@ Utility_Table_Get:
   - setvariable{var=skill.return;type=STRING;val=%string_substring_<skill.var.value_start>,<skill.var.value_end>_<caster.var.Utility_Table>%} ?variableequals{var=skill.returntype;val="string"}
   - setvariable{var=skill.return;type=INTEGER;val=%string_substring_<skill.var.value_start>,<skill.var.value_end>_<caster.var.Utility_Table>%} ?variableequals{var=skill.returntype;val="int"}
   - setvariable{var=skill.return;type=FLOAT;val=%string_substring_<skill.var.value_start>,<skill.var.value_end>_<caster.var.Utility_Table>%} ?variableequals{var=skill.returntype;val="float"}
-  - command{c="say <skill.var.return> <skill.var.returntype>"}
+  #- command{c="say <skill.var.return> <skill.var.returntype>"}
+  - signal{s=Utility_Table_Get} @self
 
+
+# Removes the selected key(s) from the table
 Utility_Table_Remove:
+  Skills:
+  - setvariable{var=skill.Utility_Table_Remove_keylistelements;val=%string_indexOf_<skill.key>_<&cm>%}
+  - skill:Utility_Table_Remove_Switch
+  - variableunset{var=skill.Utility_Table_Remove_keylistelements}
+Utility_Table_Remove_Switch:
+  Conditions:
+  - variableisset{var=skill.Utility_Table_Remove_keylistelements} true
+  - variableequals{var=skill.Utility_Table_Remove_keylistelements;val=-1} castinstead Utility_Table_Remove_One
+  Skills:
+  - skill:Utility_Table_Remove_List
+Utility_Table_Remove_List:
+  Skills:
+  - setvariable{var=skill.Utility_Table_Remove_List_FirstCommaIndex;type=INTEGER;val="%string_indexOf_<skill.key>_<&cm>%"}
+  - setvariable{var=skill.Utility_Table_Remove_List_FirstElement;type=STRING;val="%string_substring_0,<skill.var.Utility_Table_Remove_List_FirstCommaIndex>_<skill.key>%"}
+  - variableadd{var=skill.Utility_Table_Remove_List_FirstCommaIndex;amount=1}
+  - setvariable{var=skill.Utility_Table_Remove_List_OtherElements;type=STRING;val="%string_substring_<skill.var.Utility_Table_Remove_List_FirstCommaIndex>_<skill.key>%"}
+  - skill:Utility_Table{mode=REMOVE;key=<skill.var.Utility_Table_Remove_List_FirstElement>}
+  - skill:Utility_Table{mode=REMOVE;key=<skill.var.Utility_Table_Remove_List_OtherElements>}
+  #- command{c="say <skill.key> | <skill.var.Utility_Table_Remove_List_FirstElement> | <skill.var.Utility_Table_Remove_List_OtherElements>"}
+Utility_Table_Remove_One:
   Conditions:
   - variableequals{var=skill.key_start;val=-1} castinstead Utility_Table_UnsetResult
   Skills:
   - skill:Utility_Table_Get
   - setvariable{var=caster.Utility_Table;type=STRING;val="%string_substring_0,<skill.var.key_start>_<caster.var.Utility_Table>%%string_substring_<skill.var.value_end>_<caster.var.Utility_Table>%"} @self
+  - variableadd{var=caster.Utility_Table_Size;a=-1}
 
 
+# Returns the value of the first key of the table
+Utility_Table_GetFirstKey:
+  Conditions:
+  - variableinrange{var=caster.Utility_Table_Size;val=>0} orElseCast Utility_Table_UnsetResult
+  Skills:
+  - setvariable{var=skill.return;type=STRING;val=%string_substring_1,{string_indexOf_<caster.var.Utility_Table>_=}_<caster.var.Utility_Table>%}
+  - setvariable{var=skill.returntype;type=STRING;val=key}
+
+
+# Moves the selected key to last place
+Utility_Table_MoveToLast:
+  Conditions:
+  - variableequals{var=skill.key_start;val=-1} castinstead Utility_Table_UnsetResult
+  Skills:
+  - setvariable{var=skill.Utility_Table_MoveToLast_start;val=<skill.var.key_start>+1}
+  - setvariable{var=skill.Utility_Table_MoveToLast_end;val=<skill.var.value_end>+1}
+  - setvariable{var=skill.Utility_Table_MoveToLast_Buffer;type=STRING;val=%string_substring_<skill.var.Utility_Table_MoveToLast_start>,<skill.var.Utility_Table_MoveToLast_end>_<caster.var.Utility_Table>%}
+  - setvariable{var=caster.Utility_Table;type=STRING;val="%string_substring_0,<skill.var.key_start>_<caster.var.Utility_Table>%%string_substring_<skill.var.value_end>_<caster.var.Utility_Table>%<skill.var.Utility_Table_MoveToLast_Buffer>"} @self
+
+
+# Returns the key at the given index
+Utility_Table_GetKeyAtIndex:
+  Conditions:
+  #- variableinrange{var=caster.Utility_Table_Size;val=>0} orElseCast Utility_Table_UnsetResult
+  #- stringequals{v1=%string_charAt_<skill.index>_<caster.var.Utility_Table>%;v2=";"} true
+  Skills:
+  - setvariable{var=skill.return;type=STRING;val=%string_substring_<skill.index>_<caster.var.Utility_Table>%}
+  - setvariable{var=skill.return;type=STRING;val=%string_substring_1,{string_indexOf_<skill.var.return>_=}_<skill.var.return>%}
+  - setvariable{var=skill.returntype;type=STRING;val=key}
+  #- command{c="say <skill.var.return>"}
+
+
+Utility_Table_ForEach:
+  Skills:
+  #- setvariable{var=skill.Utility_Table_ForEach_List;val=<caster.var.Utility_Table>}
+  - setvariable{var=skill.Utility_Table_ForEach_Index;val=0}
+  - setvariable{var=skill.Utility_Table_ForEach_Iteration;val=0}
+  - skill:Utility_Table_ForEach_Iteraction
+Utility_Table_ForEach_Iteraction:
+  Conditions:
+  - variableinrange{var=skill.Utility_Table_ForEach_Iteration;val=<<caster.var.Utility_Table_Size>} true
+  Skills:
+  - skill:Utility_Table_GetKeyAtIndex{index=<skill.var.Utility_Table_ForEach_Index>}
+  - vskill{s=<skill.ss>}
+
+  - skill:Utility_Table_GetIndex{key=<skill.var.return>}
+  - setvariable{var=skill.Utility_Table_ForEach_Index;val=<skill.var.value_end>}
+
+  - variableadd{var=skill.Utility_Table_ForEach_Iteration;a=1}
+  - skill:Utility_Table_ForEach_Iteraction
+
+# Compares two keys
+Utility_Table_Compare:
+  Skills:
+  - skill:Utility_Table{mode=GET;key=<skill.key1>}
+
+
+Utility_Table_Sort:
+  Skills:
+  - skill:Utility_Skill_Repeat{ss=Utility_Table_Sort_List;i=<caster.var.Utility_Table_Size>}
+Utility_Table_Sort_List:
+  Skills:
+  - variableunset{var=skill.lastvalue}
+  - variableunset{var=skill.lastkey}
+  - skill:Utility_Table_ForEach{}
+Utility_Table_Element:
+  Skills:
+
+# Recalculate the size of the Table
+Utility_Table_Resize:
+  Skills:
+  - setvariable{var=caster.Utility_Table_Size;type=INTEGER;val=%string_length_<caster.var.Utility_Table>% - %string_length_{formatter_text_replace_<&sc>__<caster.var.Utility_Table>}% - 1}
+
+
+# Fundamental skill. Updates the index for the selected key. A lot of other skills uses this one's results to work.
 Utility_Table_GetIndex:
   Skills:
   - setvariable{var=skill.lastkey;type=STRING;val=<skill.key>}
  
-  - setvariable{var=skill.key_start;type=INTEGER;val=%string_indexOf_<caster.var.Utility_Table>_<&sc><skill.key>=%} @self
+  - setvariable{var=skill.key_start;type=INTEGER;val=%string_indexOf_<caster.var.Utility_Table>_<&sc><skill.key>=%} @self ?variableisset{var=skill.lastkey}
 
   - skill{s=[
     - setvariable{var=skill.key_length;type=INTEGER;val=%string_length_<skill.key>%}
@@ -63,10 +185,3 @@ Utility_Table_GetIndex:
     - setvariable{var=skill.value_start;type=INTEGER;val=<skill.var.type_end>+1}
     - setvariable{var=skill.value_lenght;type=STRING;val=%string_indexOf_{string_substring_<skill.var.value_start>_<caster.var.Utility_Table>}_<&sc>%}
     - setvariable{var=skill.value_end;type=INTEGER;val=<skill.var.value_start>+<skill.var.value_lenght>} ]} ?!variableequals{var=skill.key_start;val=-1}
-  
-
-
-
-# - setvariable{var=skill.value_start;type=INTEGER;val=<skill.var.key_end>+1}
-# - setvariable{var=skill.value_lenght;type=STRING;val=%string_indexOf_{string_substring_<skill.var.value_start>_<caster.var.Utility_Table>}_<&sc>%}
-# - setvariable{var=skill.value_end;type=INTEGER;val=<skill.var.value_start>+<skill.var.value_lenght>} ]} ?!variableequals{var=skill.key_start;val=-1}
