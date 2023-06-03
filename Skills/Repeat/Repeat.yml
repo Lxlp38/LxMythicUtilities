@@ -11,12 +11,12 @@
 # Resonates quite nicely with the repeat and repeatInterval general attributes, allowing to execute a skill multiple times per tick for multiple ticks
 #
 # Parameters:
-#  - ss: the skill to execute
+#  - repeatskill: the skill to execute
 #  - i: the amount of times to execute it
 #
 # Example Usage:
-# - skill:Utility_Skill_Repeat{ss=ExampleSkill;i=10}
-# - skill:Utility_Skill_Repeat{ss=ExampleSkill;i=10;repeat=4;repeatInterval=10}
+# - skill:Utility_Skill_Repeat{repeatskill=ExampleSkill;i=10}
+# - skill:Utility_Skill_Repeat{repeatskill=ExampleSkill;i=10;repeat=4;repeatInterval=10}
 
 
 #     _____   _      _   _   _       
@@ -29,5 +29,5 @@
 Utility_Skill_Repeat:
   Skills:
   - setvariable{var=skill.i;val=<skill.i>-1}
-  - vskill{s=<skill.ss>}
+  - vskill{s=<skill.repeatskill>}
   - skill:Utility_Skill_Repeat{s=<skill.ss>;i=<skill.var.i>} ?variableinrange{var=skill.i;val=>0}
