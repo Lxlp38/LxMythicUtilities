@@ -183,7 +183,7 @@ Utility_Table_Compare_2:
     - setvariable{var=skill.diff;type=FLOAT;val=<skill.var.key1_value>-<skill.var.key2_value>}
     - setvariable{var=skill.return;val=-<skill.var.diff>/abs(<skill.var.diff>)}
     - variableunset{var=skill.diff} ]} ?!variableisset{var=skill.return}
-  - message{m="<skill.key1>=<skill.var.key1_value> <skill.key2>=<skill.var.key2_value> <skill.var.return>"} @World
+  #- message{m="<skill.key1>=<skill.var.key1_value> <skill.key2>=<skill.var.key2_value> <skill.var.return>"} @World
 
 
 # Exchanges the position of two keys
