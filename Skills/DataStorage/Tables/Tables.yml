@@ -176,14 +176,14 @@ Utility_Table_Compare_2:
   Skills:
   - variableunset{var=skill.return}
 
-  - setvariable{var=skill.return;val=-1} ?variableequals{var=skill.var.key1_type;val="string"}
-  - setvariable{var=skill.return;val=1} ?variableequals{var=skill.var.key2_type;val="string"}
+  - setvariable{var=skill.return;val=-1} ?variableequals{var=skill.key1_type;val="string"}
+  - setvariable{var=skill.return;val=1} ?variableequals{var=skill.key2_type;val="string"}
 
   - skill{s=[
     - setvariable{var=skill.diff;type=FLOAT;val=<skill.var.key1_value>-<skill.var.key2_value>}
     - setvariable{var=skill.return;val=-<skill.var.diff>/abs(<skill.var.diff>)}
     - variableunset{var=skill.diff} ]} ?!variableisset{var=skill.return}
-  #- message{m="<skill.key1>=<skill.var.key1_value> <skill.key2>=<skill.var.key2_value> <skill.var.return>"} @World
+  - message{m="<skill.key1>=<skill.var.key1_value> <skill.key2>=<skill.var.key2_value> <skill.var.return>"} @World
 
 
 # Exchanges the position of two keys
@@ -245,11 +245,12 @@ Utility_Table_Resize:
 Utility_Table_GetIndex:
   Skills:
   - setvariable{var=skill.Utility_Table_GetIndex_key;type=STRING;val=<skill.key|NULL>} @self
- 
-  - setvariable{var=skill.key_start;type=INTEGER;val=%string_indexOf_<caster.var.Utility_Table>_<&sc><skill.key>=%} @self ?!variableequals{var=skill.Utility_Table_GetIndex_key;val=NULL}
+  
+  - setvariable{var=skill.key_start;type=INTEGER;val=-1} @self
+  - setvariable{var=skill.key_start;type=INTEGER;val=%string_indexOf_<caster.var.Utility_Table>_<&sc><skill.var.Utility_Table_GetIndex_key>=%} @self ?!variableequals{var=skill.Utility_Table_GetIndex_key;val=NULL}
 
   - skill{s=[
-    - setvariable{var=skill.key_length;type=INTEGER;val=%string_length_<skill.key>%}
+    - setvariable{var=skill.key_length;type=INTEGER;val=%string_length_<skill.var.Utility_Table_GetIndex_key>%}
     - setvariable{var=skill.key_end;type=INTEGER;val=<skill.var.key_start>+<skill.var.key_length>+1}
 
     - setvariable{var=skill.type_start;type=INTEGER;val=<skill.var.key_end>+1}
