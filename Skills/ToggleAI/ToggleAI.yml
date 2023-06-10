@@ -7,9 +7,9 @@
 #                            __/ |       
 #                           |___/        
 #
-# The following skills can be used to switch on and off the ai of a mob, with different modalities depending on the skill used.
+# The following skills can be used to switch on and off the ai of a mob, with different modes depending on the skill used.
 #
-# While they are not complex, they should be usefull in saving a bit of time and to be used directly via a meg scripted keyframe
+# While they are not complex, they should be useful in saving a bit of time and to be used directly via a meg scripted keyframe
 #
 #
 # Description of the skills:
@@ -44,4 +44,4 @@ Utility_ToggleAI:
 
 Utility_ToggleAI_Force:
   Skills:
-  - aura{d=<skill.d>;i=1;onStart=[  - setAI{ai=false} ];onTick=[  - setAI{ai=false} ];onEnd=[  - setAI{ai=true} ]}
+  - aura{d=<skill.d>;i=1;onStart=[  setAI{ai=false} ];onTick=[  setAI{ai=false} ];onEnd=[  setAI{ai=true} ]}
