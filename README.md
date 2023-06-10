@@ -7,6 +7,8 @@ A couple of QOL features for all your MythicMobs needs.
 - [MobBasedSpawner](/Mobs/MobBasedSpawner)
 
 ### Skills
+- [DataStorage](/Skills/DataStorage)
+  - [Tables](/Skills/DataStorage/Tables.yml)
 - [GetDistance](/Skills/GetDistance/GetDistance.yml)
 - [MobFixes](/Skills/MobFixes)
   - [ParrotFix](/Skills/MobFixes/ParrotFix.yml)

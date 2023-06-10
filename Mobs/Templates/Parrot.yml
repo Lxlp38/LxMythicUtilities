@@ -1,0 +1,27 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+# This is just a simple template to use for your parrot mobs. It automatically applies the ParrotFix skill
+#
+# Example:
+#
+# ExampleParrotMob:
+#  Template: Template_Parrot
+
+#    __  __           _           
+#   |  \/  |         | |          
+#   | \  / |   ___   | |__    ___ 
+#   | |\/| |  / _ \  | '_ \  / __|
+#   | |  | | | (_) | | |_) | \__ \
+#   |_|  |_|  \___/  |_.__/  |___/
+#                                 
+#                                 
+Template_Parrot:
+  Type: PARROT
+  Skills:
+  - skill{s=Utility_ParrotFix;sync=true} @self ~onDamaged
