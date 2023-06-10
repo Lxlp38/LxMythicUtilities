@@ -1,9 +1,36 @@
-ToggleAI:
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# If you do not want to write the complete name of the skill every time you need to use it, you can add to this file (or where you want to, really) something like the following
+#
+# AliasSkillName:
+#   Skills:
+#    - skill:OriginalSkillName
+#
+# So you can now use "AliasSkillName" to execute "OriginalSkillName".
+
+
+# REPEAT
+Repeat: #Utility_Skill_Repeat
+  Skills:
+  - skill:Utility_Skill_Repeat
+repeat: #Utility_Skill_Repeat
+  Skills:
+  - skill:Utility_Skill_Repeat
+
+# TOGGLEAI
+ToggleAI: #Utility_ToggleAI
   Skills:
   - skill:Utility_ToggleAI
-ToggleAI_Off:
+ToggleAI_Off: #Utility_ToggleAI_Off
   Skills:
   - skill:Utility_ToggleAI_Off
-ToggleAI_On:
+ToggleAI_On: #Utility_ToggleAI_On
   Skills:
   - skill:Utility_ToggleAI_On
