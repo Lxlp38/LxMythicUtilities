@@ -1,10 +1,12 @@
 # LxMythicUtilities
 A couple of QOL features for all your MythicMobs needs.
 
-## List of implemented mechanics
+## List of implemented features
 
 ### Mobs
 - [MobBasedSpawner](/Mobs/MobBasedSpawner)
+- [Templates](/Mobs/Templates)
+  - [Parrot](/Mobs/Templates/Parrot.yml)
 
 ### Skills
 - [DataStorage](/Skills/DataStorage)
@@ -16,5 +18,6 @@ A couple of QOL features for all your MythicMobs needs.
   - [Align](/Skills/Relocation/Align.yml)
 - [Repeat](/Skills/Repeat.yml)
 - [Strings](/Skills/Strings)
+  - [FormatHealth](/Skills/Strings/FormatHealth/FormatHealth.yml)
   - [GenerateProgressBar](/Skills/Strings/GenerateProgressBar/GenerateProgressBar.yml)
 - [ToggleAI](/Skills/ToggleAI)
