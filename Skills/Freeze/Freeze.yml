@@ -1,0 +1,33 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# This metaskill allows you to freeze a player for a set amount of ticks
+#
+# Parameters:
+# - duration --> The duration of the freeze effect. Defaults to 100. 
+# - damage   --> The damage inflicted every damage instance. Defaults to 1.
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+Utility_Freeze:
+  Skills:
+  - aura{
+    d=<skill.duration|100>;
+    i=1;
+    onTick=[
+      - freeze{ticks=280}
+      - damage{a=<skill.damage|1>;cd=2;damagecause=FREEZE}
+      ]
+    } @self
+
