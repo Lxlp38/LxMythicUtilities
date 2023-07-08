@@ -21,9 +21,9 @@
 # Utility_GetDistance_Weighted -> get the distance between the caster and the target and stores it inside <skill.var.Utility_GetDistance_Weighted>.
 #                                 in the formula, the distance on every axis will first be multiplied by a skill parameter (the weight)
 #                                 The parameters are as follow:
-#                                   x -> the value for which the x distance will be multiplied
-#                                   y -> the value for which the y distance will be multiplied
-#                                   z -> the value for which the z distance will be multiplied
+#                                   x -> the value for which the x distance will be multiplied. Defaults to 1.
+#                                   y -> the value for which the y distance will be multiplied. Defaults to 1.
+#                                   z -> the value for which the z distance will be multiplied. Defaults to 1.
 
 #     _____   _      _   _   _       
 #    / ____| | |    (_) | | | |      
@@ -54,4 +54,4 @@ Utility_GetDistance_z:
 
 Utility_GetDistance_Weighted:
   Skills:
-  - setvariable{var=skill.Utility_GetDistance_Weighted;type=FLOAT;val=sqrt(((<caster.l.x.double> - <target.l.x.double>)*<skill.x>)^2 + ((<caster.l.y.double> - <target.l.y.double>)*<skill.y>)^2 + ((<caster.l.z.double> - <target.l.z.double>)*<skill.z>)^2)}
+  - setvariable{var=skill.Utility_GetDistance_Weighted;type=FLOAT;val=sqrt(((<caster.l.x.double> - <target.l.x.double>)*<skill.x|1>)^2 + ((<caster.l.y.double> - <target.l.y.double>)*<skill.y|1>)^2 + ((<caster.l.z.double> - <target.l.z.double>)*<skill.z|1>)^2)}
