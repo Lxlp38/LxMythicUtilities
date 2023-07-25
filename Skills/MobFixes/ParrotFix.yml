@@ -24,7 +24,7 @@
 
 Utility_ParrotFix:
   Conditions:
-  - damageamount{a=>1000} true
+  - damageamount{a=>2500} true
   Skills:
   - potion{type=POISON;d=0;force=true} @self
   - cancelevent @self

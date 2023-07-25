@@ -350,6 +350,7 @@ Utility_Table_GetKeyAtIndex:
 # Output Format:
 # - skill.var.returntype --> contains the type of the value returned, in this case it being "key". Each time the elementskill is triggered, this value is updated
 # - skill.var.return --> contains the name of the key in the selected position. Each time the elementskill is triggered, this value is updated
+# - skill.var.Utility_Table_ForEach_Iteration --> the current iteration. Starts at 0 and increases by 1 every new element parsed
 Utility_Table_ForEach:
   Skills:
   #- setvariable{var=skill.Utility_Table_ForEach_List;val=<caster.var.Utility_Table>}

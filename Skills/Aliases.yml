@@ -25,12 +25,12 @@ repeat: #Utility_Skill_Repeat
   - skill:Utility_Skill_Repeat
 
 # TOGGLEAI
-ToggleAI: #Utility_ToggleAI
+ToggleAI:     #Utility_ToggleAI
   Skills:
   - skill:Utility_ToggleAI
 ToggleAI_Off: #Utility_ToggleAI_Off
   Skills:
   - skill:Utility_ToggleAI_Off
-ToggleAI_On: #Utility_ToggleAI_On
+ToggleAI_On:  #Utility_ToggleAI_On
   Skills:
   - skill:Utility_ToggleAI_On
