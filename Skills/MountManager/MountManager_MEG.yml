@@ -1,0 +1,85 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# This metaskill can be used to simulate a makeshift onMount and onDismount event.
+# An example of how this can be implemented in a mob is shown below.
+# By default, the skill will send a signal to the mob each time it is mounted or dismounted.
+# Please not that a onTimer with too great a value may make the skill not fire correctly if the entity is mounted or dismounted multiple times in a short span of time
+#
+
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+# This is the main metaskill of this whole setup.
+# By design, it must be executed with a onTimer trigger.
+#
+# Required Parameters:
+# - mount    ---> The metaskill that will be executed when the entity is mounted. Defaults to MountEventManager_MountEvent
+# - dismount ---> The metaskill that will be executed when the entity is mounted. Defaults to MountEventManager_DismountEvent
+# - d        ---> The duration used as the onTimer interval. Defaults to 5 ticks.
+#
+# Output Format: none
+#
+# Example Usage:
+#   MOB CONFIG
+#   ExampleMob:
+#     Type: DROWNED
+#     Skills:
+#     - model{mid=your_model} @self ~onSpawn
+#     - skill:MountEventManager{mount=YourMountMetaskill;dismount=YourDismountMetaskill;d=5} @self ~onTimer:5
+MountEventManager:
+  Conditions:
+  - modelhasdriver true
+  Skills:
+  - aura{auraName=MountEventManager;d=<skill.d|5>+1;onStart=MountEventManager_onStartParser;onEnd=MountEventManager_onEndParser} @self
+
+
+
+# This metaskill is used to parse the value of the mount parameter, in order to cast the correct skill
+#
+# Required Parameters:
+# - mount ---> A metaskill. Defaults to MountEventManager_MountEvent
+#
+# Output Format: none
+MountEventManager_onStartParser:
+  Skills:
+  - vskill{s=<skill.mount|MountEventManager_MountEvent>}
+# This metaskill is used to parse the value of the dismount parameter, in order to cast the correct skill
+#
+# Required Parameters:
+# - dismount ---> A metaskill. Defaults to MountEventManager_MountEvent
+#
+# Output Format: none
+MountEventManager_onEndParser:
+  Skills:
+  - vskill{s=<skill.dismount|MountEventManager_DismountEvent>}
+
+
+# This skill will send a MEM_MOUNTED signal to self
+#
+# Required Parameters: none
+#
+# Output Format: none
+MountEventManager_MountEvent:
+  Skills:
+  - signal{s=MEM_MOUNTED} @self
+# This skill will send a MEM_DISMOUNTED signal to self
+#
+# Required Parameters: none
+#
+# Output Format: none
+MountEventManager_DismountEvent:
+  Skills:
+  - signal{s=MEM_DISMOUNTED} @self
