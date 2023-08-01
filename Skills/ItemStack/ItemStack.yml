@@ -1,0 +1,53 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# The metaskills in this page can be used to modify the itemstack of a dropped item entity, once it becomes the inherited target
+# Those mechanics are to be cast with a item entity targeter, such as ItemsInRadius
+# The following commands must be used before implementing the skills:
+# /scoreboard objectives add utilityitemstack dummy
+# /scoreboard players set global utilityitemstack 1
+#
+# Example:
+# - skill:Utility_ChangeItemStack{amount=2;operation=/} @IIR{r=10}
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+# This skill is used to increase by 1 the amount of items of the dropped item entity
+Utility_IncreaseItemStack:
+  Skills:
+  - command{c="scoreboard players set global utilityitemstack 1"} 
+  - command{c="execute as <target.uuid> store result score @s utilityitemstack run data get entity @s Item.Count"}
+  - command{c="scoreboard players operation <target.uuid> utilityitemstack += global utilityitemstack"}
+  - command{c="execute as <target.uuid> store result entity @s Item.Count int 1 run scoreboard players get @s utilityitemstack"}
+
+# This skill is used to decrease by 1 the amount of items of the dropped item entity
+Utility_DecreaseItemStack:
+  Skills:
+  - command{c="scoreboard players set global utilityitemstack 1"}
+  - command{c="execute as <target.uuid> store result score @s utilityitemstack run data get entity @s Item.Count"}
+  - command{c="scoreboard players operation <target.uuid> utilityitemstack -= global utilityitemstack"}
+  - command{c="execute as <target.uuid> store result entity @s Item.Count int 1 run scoreboard players get @s utilityitemstack"}
+
+# This skill is used to change the amount of items of the dropped item entity. The amount and the operation can be specified.
+#
+# Required Parameters:
+# - amount --> the amount of the operation. Defaults to 1
+# - operation --> the type of operation. Defaults to +. Can be + - * / %
+Utility_ChangeItemStack:
+  Skills:
+  - command{c="scoreboard players set global utilityitemstack <skill.amount|1>"}
+  - command{c="execute as <target.uuid> store result score @s utilityitemstack run data get entity @s Item.Count"}
+  - command{c="scoreboard players operation <target.uuid> utilityitemstack <skill.operation|+>= global utilityitemstack"}
+  - command{c="execute as <target.uuid> store result entity @s Item.Count int 1 run scoreboard players get @s utilityitemstack"}
