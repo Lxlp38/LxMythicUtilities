@@ -11,7 +11,6 @@
 # An example of how this can be implemented in a mob is shown below.
 # By default, the skill will send a signal to the mob each time it is mounted or dismounted.
 # Please not that a onTimer with too great a value may make the skill not fire correctly if the entity is mounted or dismounted multiple times in a short span of time
-#
 
 
 

@@ -1,0 +1,65 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# The metaskills in this page are used to forcefully leash an entity, if normally impossible. Usually, this is only the case with MEG modeled entities.
+
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+# This metaskill will forcefully leash the caster of the mechanic to the inherited target
+Utility_ForceLeash_Set:
+  Skills:
+  - command{c="data modify entity <caster.uuid> Leash.UUID set from entity <target.uuid> UUID"}
+
+# This metaskill will remove the forcefully applied leash
+Utility_ForceLeash_Remove:
+  Skills:
+  - command{c="data remove entity <caster.uuid> Leash.UUID"} @self
+
+
+# This metaskill is an already configured framework to handle the leashing of an entity.
+# Execute this ~onInteract
+Utility_ForceLeashFramework:
+  TriggerConditions:
+  - holding{m=lead} orElseCast Utility_ForceLeash_Remove
+  Skills:
+  - consumeslot{slot=HAND;amount=1} @trigger
+  - skill:Utility_ForceLeash_Set @trigger
+
+
+# This metaskill is a configured framework to handle the leashing of a MEG modeled entity.
+# Execute this ~onInteract
+#
+# Required Parameters:
+# - mid ---> The modelid of the casting modeled entity
+# - pid ---> The partid of the leash bone you want to graphically see leashed
+#
+# Example:
+# - skill:Utility_ForceLeashFramework_MEG{mid=rinoceronte;pid=leash} @trigger ~onInteract
+Utility_ForceLeashFramework_MEG:
+  Skills:
+  - skill:Utility_ForceLeashFramework_MEG_Remove ?~holding{m=lead}
+  - skill{s=[
+    - consumeslot{slot=HAND;amount=1}
+    - skill:Utility_ForceLeash_Set
+    - leash{mid=<skill.mid>;pid=<skill.pid>;l=true}
+    ]} @trigger ?variableisset{var=skill.set}
+  - skill{s=[
+    - skill:Utility_ForceLeash_Remove
+    - leash{mid=<skill.mid>;pid=<skill.pid>;l=false} @trigger
+    ]} @trigger ?!variableisset{var=skill.set}
+Utility_ForceLeashFramework_MEG_Remove:
+  Skills:
+  - setvariable{var=skill.set;val=1} @self
