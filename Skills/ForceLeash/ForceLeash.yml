@@ -55,11 +55,33 @@ Utility_ForceLeashFramework_MEG:
     - consumeslot{slot=HAND;amount=1}
     - skill:Utility_ForceLeash_Set
     - leash{mid=<skill.mid>;pid=<skill.pid>;l=true}
+    - setvariable{var=caster.leashholder;type=STRING;val=<target.uuid>}
+    - skill:Utility_ForceLeashFramework_MEG_LeashHandler
     ]} @trigger ?variableisset{var=skill.set}
   - skill{s=[
     - skill:Utility_ForceLeash_Remove
-    - leash{mid=<skill.mid>;pid=<skill.pid>;l=false} @trigger
+    - leash{mid=<skill.mid>;pid=<skill.pid>;l=false} @self
     ]} @trigger ?!variableisset{var=skill.set}
 Utility_ForceLeashFramework_MEG_Remove:
   Skills:
   - setvariable{var=skill.set;val=1} @self
+
+Utility_ForceLeashFramework_MEG_LeashHandler:
+  Conditions:
+  - variableisset{var=caster.leashholder_ex} false
+  Skills:
+  - setvariable{var=caster.leashholder_ex;val=1}
+  - skill:Utility_ForceLeashFramework_MEG_LeashHandler_Loop
+
+Utility_ForceLeashFramework_MEG_LeashHandler_Loop:
+  Conditions:
+  - variableisset{var=caster.leashholder} true
+  Skills:
+  - delay 20
+  - skill:Utility_GetDistance @UUID{u=<caster.var.leashholder>}
+  - skill{s=[
+    - leash{mid=<skill.mid>;pid=<skill.pid>;l=false}
+    - variableunset{var=caster.leashholder}
+    - variableunset{var=caster.leashholder_ex}
+    ]} @self ?variableinrange{var=skill.Utility_GetDistance;val=>8}
+  - skill:Utility_ForceLeashFramework_MEG_LeashHandler_Loop
