@@ -15,7 +15,7 @@ A couple of QOL features for all your MythicMobs needs.
 
 - [DataStorage](/Skills/DataStorage)
   - [Tables](/Skills/DataStorage/Tables/Tables.yml)
-  [ForceLeash](/Skills/ForceLeash/ForceLeash.yml)
+- [ForceLeash](/Skills/ForceLeash/ForceLeash.yml)
 - [Freeze](/Skills/Freeze/Freeze.yml)
 - [GetDistance](/Skills/GetDistance/GetDistance.yml)
 - [ItemStack](/Skills/ItemStack/ItemStack.yml)
