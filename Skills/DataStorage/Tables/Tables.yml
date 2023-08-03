@@ -54,7 +54,7 @@
 #
 # Required parameters
 # - mode --> sets the operation that the skill will use
-# - <The parameters required bu the operation selected>
+# - <The parameters required by the operation selected>
 #
 # Output Format: none
 #
