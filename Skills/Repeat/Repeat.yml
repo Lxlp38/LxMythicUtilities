@@ -30,4 +30,4 @@ Utility_Skill_Repeat:
   Skills:
   - setvariable{var=skill.i;val=<skill.i>-1}
   - vskill{s=<skill.repeatskill>}
-  - skill:Utility_Skill_Repeat{s=<skill.ss>;i=<skill.var.i>} ?variableinrange{var=skill.i;val=>0}
+  - skill:Utility_Skill_Repeat{i=<skill.var.i>} ?variableinrange{var=skill.i;val=>0}
