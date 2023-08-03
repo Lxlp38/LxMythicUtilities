@@ -25,6 +25,7 @@ A couple of QOL features for all your MythicMobs needs.
   - [MEG Mount Manager](/Skills/MountManager/MountManager_MEG.yml)
 - [Relocation](/Skills/Relocation)
   - [Align](/Skills/Relocation/Align.yml)
+  - [TeleportCloser](/Skills/Relocation/TeleportCloser.yml)
 - [Repeat](/Skills/Repeat/Repeat.yml)
 - [Strings](/Skills/Strings)
   - [FormatHealth](/Skills/Strings/FormatHealth/FormatHealth.yml)
