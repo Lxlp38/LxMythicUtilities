@@ -1,0 +1,35 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+# The metaskills on this file are used to teleport an entity closer to a specified location, regardless of their yaw/pitch
+
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+# Use this skill to teleport the caster closer to the inherited location, with a specified distance.
+# The "resolution" of the metaskill is 0.25 blocks, so a distance that is not a multiple of this value will be rounded to be one. Keep this in mind.
+#
+# Required Parameters:
+# - distance --> How closer the caster should be to the targeted location after the metaskill is executed. Defaults to 1.
+#
+# Example:
+# - skill:Utility_TeleportCloser{distance=2} @EIR{r=10;limit=1;sort=RANDOM}
+Utility_TeleportCloser:
+  Skills:
+  - skill:Utility_Skill_Repeat{repeatskill=Utility_TeleportCloser_Instance;i=<skill.distance|1>/0.25}
+Utility_TeleportCloser_Instance:
+  Skills:
+  - skill{s=[
+    - teleport @Line{r=0.25;limit=1;sort=NEAREST}
+    ]} 
