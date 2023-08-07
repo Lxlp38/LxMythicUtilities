@@ -7,6 +7,17 @@
 #                            __/ |       
 #                           |___/        
 #
+# The metaskills on this page are used to format any given integer/float value into a more succint syntax
+
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
 # This Metaskill allows to format numbers into a "TEXT" format and saves it inside <skill.var.return>
 # For instance:
 #   100         -->  100
@@ -16,38 +27,29 @@
 #   1000000000  -->  1B
 #
 # Required Parameters:
-# - value --> the number to format
+# - value --> the number to format. Defaults to 0.
 #
 # Output format:
 # <skill.var.return> --> the formatted value
 #
 # Example Usage:
 # - skill{s=[
-#   - skill:Utility_String_FormatHealth{value=<caster.health>}
+#   - skill:Utility_String_FormatHealth{value=<caster.hp>}
 #   - command{c="say <skill.var.return>"}
 #   ]} @self ~onDamaged
-
-
-#     _____   _      _   _   _       
-#    / ____| | |    (_) | | | |      
-#   | (___   | | __  _  | | | |  ___ 
-#    \___ \  | |/ / | | | | | | / __|
-#    ____) | |   <  | | | | | | \__ \
-#   |_____/  |_|\_\ |_| |_| |_| |___/
-#
-Utility_String_FormatHealth:
+Utility_String_FormatValue:
   Skills:
-  - setvariable{var=skill.return;val=<skill.value>}
-  - setvariable{var=skill.magnitude;val=ceil(log10(<skill.var.return>))/3}
-  - setvariable{var=skill.return;val=<skill.var.return>/(10^(<skill.var.magnitude>*3))}
-  - vskill{s=Utility_String_FormatHealth_Switch_<skill.var.magnitude>}
+  - setvariable{var=skill.return;val=<skill.value|0>} @self
+  - setvariable{var=skill.magnitude;val=ceil(log10(<skill.var.return>))/3} @self
+  - setvariable{var=skill.return;val=<skill.var.return>/(10^(<skill.var.magnitude>*3))} @self
+  - vskill{s=Utility_String_FormatValue_Switch_<skill.var.magnitude>} @self
 
-Utility_String_FormatHealth_Switch_1:
+Utility_String_FormatValue_Switch_1:
   Skills:
   - setvariable{var=skill.return;type=STRING;val=<skill.var.return>K}
-Utility_String_FormatHealth_Switch_2:
+Utility_String_FormatValue_Switch_2:
   Skills:
   - setvariable{var=skill.return;type=STRING;val=<skill.var.return>M}
-Utility_String_FormatHealth_Switch_3:
+Utility_String_FormatValue_Switch_3:
   Skills:
   - setvariable{var=skill.return;type=STRING;val=<skill.var.return>B}

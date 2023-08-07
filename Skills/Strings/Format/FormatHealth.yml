@@ -1,0 +1,39 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# The metaskills on this page are a specific application of the Utility_String_FormatValue metaskill, specific for the mob's health
+
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+
+# This Metaskill allows to format the target's health into a "TEXT" format and saves it inside <skill.var.return>
+# For instance:
+#   100         -->  100
+#   1000        -->  1K
+#   10000       -->  10K
+#   1000000     -->  1M
+#   1000000000  -->  1B
+#
+# Required Parameters: none
+#
+# Output format:
+# <skill.var.return> --> the formatted value
+#
+# Example Usage:
+#   - skill:Utility_String_FormatHealth{delay=1} @self ~onDamaged
+Utility_String_FormatHealth:
+  Skills:
+  - setvariable{var=skill.autoupdate;type=STRING;val=<skill.autoupdate|false>} @self
+  - skill:Utility_String_FormatValue{value=<target.hp>}
