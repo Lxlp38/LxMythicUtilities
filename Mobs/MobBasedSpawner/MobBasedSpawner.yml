@@ -44,6 +44,6 @@ Frame_Spawner:
         ]} ?variableinrange{var=caster.cooldown;val=<1}
       ]} ?variableinrange{var=caster.warmup;val=<1}
     - variablesubtract{var=caster.warmup;amount=1} @self ?!variableinrange{var=caster.warmup;val=<1} ?variableinrange{var=caster.mobcap;val=><caster.children.size>}
-    - setvariable{var=caster.warmup;val=<caster.var.warmupmax>} ?!variableinrange{var=caster.mobcap;val=><caster.children.size>} ?!variableinrange{var=caster.warmup;val=<caster.warmupmax>}
+    - setvariable{var=caster.warmup;val=<caster.var.warmupmax>} ?!variableinrange{var=caster.mobcap;val=><caster.children.size>} ?!variableequals{var=caster.warmup;val=<caster.warmupmax>}
     - holo{text="<caster.var.cooldown> <caster.var.warmup> <caster.children.size>";stay=2} @selflocation{y=1}
     ]} @self ~onTimer:1 ?playersinradius{r=20;a=>0}
