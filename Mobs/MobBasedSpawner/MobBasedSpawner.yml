@@ -29,11 +29,16 @@ Frame_Spawner:
     Small: true
     Despawn: persistent
   Skills:
-  - setvariable{var=caster.cooldownmax;val=100} @self ~onSpawn
-  - setvariable{var=caster.warmupmax;val=20} @self ~onSpawn
-  - setvariable{var=caster.cooldown;val=100} @self ~onSpawn
-  - setvariable{var=caster.warmup;val=20} @self ~onSpawn
-  - setvariable{var=caster.mobcap;val=3} @self ~onSpawn
+  - skill{s=[
+      - setvariable{var=caster.cooldownmax;val=100}
+      - setvariable{var=caster.warmupmax;val=20}
+      - setvariable{var=caster.cooldown;val=100}
+      - setvariable{var=caster.warmup;val=20}
+      - setvariable{var=caster.mobcap;val=3}
+    ]} @self ~onSignal:SPAWNER_RELOAD
+  - signal{s=SPAWNER_RELOAD} @self ~onSpawn
+  - signal{s=SPAWNER_RELOAD} @self ~onLoad
+  
   - skill{s=[
     - skill{s=[
       - variablesubtract{var=caster.cooldown;amount=<skill.targets>} @PIR{r=20} ?targets{a=>0}
