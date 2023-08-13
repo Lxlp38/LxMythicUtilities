@@ -29,11 +29,16 @@ Frame_Spawner:
     Small: true
     Despawn: persistent
   Skills:
-  - setvariable{var=caster.cooldownmax;val=100} @self ~onSpawn
-  - setvariable{var=caster.warmupmax;val=20} @self ~onSpawn
-  - setvariable{var=caster.cooldown;val=100} @self ~onSpawn
-  - setvariable{var=caster.warmup;val=20} @self ~onSpawn
-  - setvariable{var=caster.mobcap;val=3} @self ~onSpawn
+  - skill{s=[
+      - setvariable{var=caster.cooldownmax;val=100}
+      - setvariable{var=caster.warmupmax;val=20}
+      - setvariable{var=caster.cooldown;val=100}
+      - setvariable{var=caster.warmup;val=20}
+      - setvariable{var=caster.mobcap;val=3}
+    ]} @self ~onSignal:SPAWNER_RELOAD
+  - signal{s=SPAWNER_RELOAD} @self ~onSpawn
+  - signal{s=SPAWNER_RELOAD} @self ~onLoad
+  
   - skill{s=[
     - skill{s=[
       - variablesubtract{var=caster.cooldown;amount=<skill.targets>} @PIR{r=20} ?targets{a=>0}
@@ -44,6 +49,6 @@ Frame_Spawner:
         ]} ?variableinrange{var=caster.cooldown;val=<1}
       ]} ?variableinrange{var=caster.warmup;val=<1}
     - variablesubtract{var=caster.warmup;amount=1} @self ?!variableinrange{var=caster.warmup;val=<1} ?variableinrange{var=caster.mobcap;val=><caster.children.size>}
-    - setvariable{var=caster.warmup;val=<caster.var.warmupmax>} ?!variableinrange{var=caster.mobcap;val=><caster.children.size>} ?!variableinrange{var=caster.warmup;val=<caster.warmupmax>}
+    - setvariable{var=caster.warmup;val=<caster.var.warmupmax>} ?!variableinrange{var=caster.mobcap;val=><caster.children.size>} ?!variableequals{var=caster.warmup;val=<caster.warmupmax>}
     - holo{text="<caster.var.cooldown> <caster.var.warmup> <caster.children.size>";stay=2} @selflocation{y=1}
     ]} @self ~onTimer:1 ?playersinradius{r=20;a=>0}
