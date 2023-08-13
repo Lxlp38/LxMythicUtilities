@@ -40,7 +40,7 @@
 #     - skill:MountEventManager{mount=YourMountMetaskill;dismount=YourDismountMetaskill;d=5} @self ~onTimer:5
 MountEventManager:
   Conditions:
-  - modelhasdriver true
+  - ( modelhasdriver || hasPassenger ) true
   Skills:
   - aura{auraName=MountEventManager;d=<skill.d|5>+1;onStart=MountEventManager_onStartParser;onEnd=MountEventManager_onEndParser} @self
 
