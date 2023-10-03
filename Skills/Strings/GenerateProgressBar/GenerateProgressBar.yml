@@ -34,7 +34,7 @@
 #                                    
 Utility_String_GenerateProgressBar:
   Skills:
-  - setvariable{var=Utility_String_GenerateProgressBar_ERROR;val=1}
+  - setvariable{var=skill.Utility_String_GenerateProgressBar_ERROR;val=1}
   - setvariable{var=skill.Utility_String_GenerateProgressBar;type=STRING;val="<skill.startstring>"}
   - setvariable{var=skill.i;val=0}
   - setvariable{var=skill.switch;val=(<skill.value>/<skill.maxvalue>)*<skill.segments>}
@@ -52,4 +52,4 @@ Utility_String_GenerateProgressBar_Loop:
 Utility_String_GenerateProgressBar_End:
   Skills:
   - setvariable{var=skill.Utility_String_GenerateProgressBar;type=STRING;val="<skill.var.Utility_String_GenerateProgressBar><skill.endstring>"}
-  - setvariable{var=Utility_String_GenerateProgressBar_ERROR;val=0}
+  - setvariable{var=skill.Utility_String_GenerateProgressBar_ERROR;val=0}
