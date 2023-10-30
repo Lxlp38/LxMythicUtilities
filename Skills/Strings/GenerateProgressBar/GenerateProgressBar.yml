@@ -9,8 +9,8 @@
 #
 # This skill will fetch a couple skill parameters and output the completed string in the Utility_String_GenerateProgressBar STRING variable with a SKILL scope.
 # The string can thus be fetched via <skill.var.Utility_String_GenerateProgressBar>
-# 
-# The required parameters are the followings:
+#
+# Required Parameters:
 #  - value  --> the value of the progress bar
 #  - maxvalue  --> the maximum value that can be reached
 #  - segments  --> the number of segments in the progress bar
@@ -18,6 +18,11 @@
 #  - startstring  --> the string used at the start of the progress bar
 #  - endstring  --> the string used at the end of the progress bar
 #  - colorswitch  --> The string to be applied before the segment when the color need to change.
+#
+# Output Format:
+# <skill.var.Utility_String_GenerateProgressBar> --> The resulting progressbar [STRING]
+# <skill.var.Utility_String_GenerateProgressBar-Percent> --> The percentage of how filled the bar is, rounded [INTEGER]
+# <skill.var.Utility_String_GenerateProgressBar-PercentFloat> --> The percentage of how filled the bar is [FLOAT]
 #
 #  Example:
 #  - skill:Utility_String_GenerateProgressBar{value=2;maxvalue=10;segments=10;segmentstring="|";startstring="&8[&c";colorswitch="&7";endstring="&8]&r"} @self
@@ -42,10 +47,12 @@ Utility_String_GenerateProgressBar:
 
 Utility_String_GenerateProgressBar_Loop:
   Conditions:
-  - variableinrange{var=skill.i;val=<<skill.maxvalue>} orElseCast Utility_String_GenerateProgressBar_End
+  - variableinrange{var=skill.i;val=<<skill.segments>} orElseCast Utility_String_GenerateProgressBar_End
   Skills:
   - setvariable{var=skill.Utility_String_GenerateProgressBar;type=STRING;val="<skill.var.Utility_String_GenerateProgressBar><skill.segmentstring>"} ?!variableequals{var=skill.i;val=<skill.var.switch>}
   - setvariable{var=skill.Utility_String_GenerateProgressBar;type=STRING;val="<skill.var.Utility_String_GenerateProgressBar><skill.colorswitch><skill.segmentstring>"} ?variableequals{var=skill.i;val=<skill.var.switch>}
+  - setvariable{var=skill.Utility_String_GenerateProgressBar-Percent;val=(<skill.value>/<skill.maxvalue>)*100}
+  - setvariable{var=skill.Utility_String_GenerateProgressBar-PercentFloat;type=FLOAT;val=(<skill.value>/<skill.maxvalue>)*100}
   - variableadd{var=skill.i;a=1}
   - skill:Utility_String_GenerateProgressBar_Loop
 
@@ -53,3 +60,9 @@ Utility_String_GenerateProgressBar_End:
   Skills:
   - setvariable{var=skill.Utility_String_GenerateProgressBar;type=STRING;val="<skill.var.Utility_String_GenerateProgressBar><skill.endstring>"}
   - setvariable{var=skill.Utility_String_GenerateProgressBar_ERROR;val=0}
+
+
+GenerateProgressBar_Test:
+  Skills:
+  - skill:Utility_String_GenerateProgressBar{value=13;maxvalue=17;segments=10;segmentstring="|";startstring="&8[&c";colorswitch="&7";endstring="&8]&r"} @self
+  - command{c="say <skill.var.Utility_String_GenerateProgressBar-PercentFloat>"}
