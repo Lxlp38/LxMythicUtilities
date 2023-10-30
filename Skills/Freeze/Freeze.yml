@@ -24,6 +24,7 @@ Utility_Freeze:
   Skills:
   - sudoskill{s=[
     - aura{
+      auraName=freeze;
       d=<skill.duration|100>;
       i=1;
       onTick=[
@@ -31,5 +32,5 @@ Utility_Freeze:
         - damage{a=<skill.damage|1>;cd=2;damagecause=FREEZE}
         ]
       } @self
-    ]}
+    ]} @self
 
