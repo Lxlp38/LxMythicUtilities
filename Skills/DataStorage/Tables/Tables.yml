@@ -91,7 +91,7 @@ Utility_Table:
   - setvariable{var=skill.key;type=STRING;val=<skill.key|NULL>} @self
   - setvariable{var=skill.table;type=STRING;val=<skill.table|default>} @self
   
-  - setvariable{var=caster.<skill.var.table>;type=STRING;val=";"} ?stringequals{value1=<placeholder.invalidVariableError>;value2=%mythic_var_<caster.uuid>_<skill.var.table>%}
+  - setvariable{var=caster.<skill.var.table>;type=STRING;val="null"} ?stringequals{value1=<placeholder.invalidVariableError>;value2=%mythic_var_<caster.uuid>_<skill.var.table>%}
   - setvariable{var=skill.UtilityTable;type=STRING;val=%mythic_var_<caster.uuid>_<skill.var.table>%}
 
   - skill:Utility_Table_Create @self ?variableequals{var=skill.UtilityTable;val=null}
@@ -100,7 +100,7 @@ Utility_Table:
   - setvariable{var=caster.<skill.var.table>;type=STRING;val=<skill.var.UtilityTable>}
 Utility_Table_SwitchMode:
   Conditions:
-  - variableisset{var=skill.mode} true
+  #- variableisset{var=skill.mode} true
   - variableequals{var=skill.mode;val=NULL} false
   - variableequals{var=skill.mode;val=SET} castinstead Utility_Table_Set                         # Sets the value of a key on the table
   - variableequals{var=skill.mode;val=GET} castinstead Utility_Table_Get                         # Gets the value of the specified key
