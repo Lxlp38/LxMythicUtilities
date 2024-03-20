@@ -1,0 +1,45 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# This skill will fetch some skill parameters and output the completed string in the Utility_GenerateCooldownBar STRING variable with a SKILL scope.
+# The string can thus be fetched via <skill.var.Utility_GenerateCooldownBar>
+#
+# Required Parameters:
+# - centervalue --> the string to display at the center of the generated string
+# > This mechanic inherits every skill parameter of the Utility_String_GenerateProgressBar metaskill
+
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+#                                    
+Utility_GenerateCooldownBar:
+  Skills:
+  - setvariable{var=skill.Utility_String_GenerateProgressBar_Inverse;type=STRING;val="<skill.endstring>"}
+  - skill:Utility_String_GenerateProgressBar{iterationskill=Utility_GenerateCooldownBar_SecondaryBar;colorswitchskill=Utility_GenerateCooldownBar_SecondaryBar_ColorSwitch}
+  - setvariable{var=skill.Utility_String_GenerateProgressBar_Inverse;type=STRING;val="<skill.startstring><skill.colorswitch><skill.var.Utility_String_GenerateProgressBar_Inverse>"}
+  - setvariable{var=skill.Utility_GenerateCooldownBar;type=STRING;val=<skill.var.Utility_String_GenerateProgressBar> <skill.centervalue> <skill.var.Utility_String_GenerateProgressBar_Inverse>}
+
+
+Utility_GenerateCooldownBar_SecondaryBar:
+  Skills:
+  - setvariable{var=skill.Utility_String_GenerateProgressBar_Inverse;type=STRING;val="<skill.segmentstring><skill.var.Utility_String_GenerateProgressBar_Inverse>"}
+Utility_GenerateCooldownBar_SecondaryBar_ColorSwitch:
+  Skills:
+  - setvariable{var=skill.Utility_String_GenerateProgressBar_Inverse;type=STRING;val="<skill.startcolor><skill.var.Utility_String_GenerateProgressBar_Inverse>"}
+
+
+Utility_GenerateCooldownBar_Test:
+  Skills:
+  - skill:Utility_GenerateCooldownBar{value=2;maxvalue=10;segments=21;segmentstring="|";startstring="&8[";startcolor=&c;colorswitch="&7";endstring="&8]&r";centervalue=&a[hello]} @self
+  - message{m="<skill.var.Utility_GenerateCooldownBar>"} @self
