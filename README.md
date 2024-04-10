@@ -31,7 +31,7 @@ A couple of QOL features for all your MythicMobs needs.
   - [Format](/Skills/Strings/Format)
     - [FormatValue](/Skills/Strings/Format/FormatValue.yml)
     - [FormatHealth](/Skills/Strings/Format/FormatHealth.yml)
-  - [GenerateProgressBar]
+  - [GenerateProgressBar](/Skills/Strings/GenerateProgressBar)
     - [GenerateProgressBar](/Skills/Strings/GenerateProgressBar/GenerateProgressBar.yml)
     - [GenerateCooldownBar](/Skills/Strings/GenerateProgressBar/GenerateCooldownBar.yml)
 - [ToggleAI](/Skills/ToggleAI)
