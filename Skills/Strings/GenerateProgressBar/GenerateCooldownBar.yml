@@ -27,8 +27,9 @@ Utility_GenerateCooldownBar:
   Skills:
   - setvariable{var=skill.Utility_String_GenerateProgressBar_Inverse;type=STRING;val="<skill.endstring>"}
   - skill:Utility_String_GenerateProgressBar{iterationskill=Utility_GenerateCooldownBar_SecondaryBar;colorswitchskill=Utility_GenerateCooldownBar_SecondaryBar_ColorSwitch}
+  - skill:Utility_GenerateCooldownBar_SecondaryBar_ColorSwitch ?variableequals{var=skill.switch;val=<skill.segments>}
   - setvariable{var=skill.Utility_String_GenerateProgressBar_Inverse;type=STRING;val="<skill.startstring><skill.colorswitch><skill.var.Utility_String_GenerateProgressBar_Inverse>"}
-  - setvariable{var=skill.Utility_GenerateCooldownBar;type=STRING;val=<skill.var.Utility_String_GenerateProgressBar> <skill.centervalue> <skill.var.Utility_String_GenerateProgressBar_Inverse>}
+  - setvariable{var=skill.Utility_GenerateCooldownBar;type=STRING;val=<skill.var.Utility_String_GenerateProgressBar><skill.centervalue><skill.var.Utility_String_GenerateProgressBar_Inverse>}
 
 
 Utility_GenerateCooldownBar_SecondaryBar:
@@ -41,5 +42,5 @@ Utility_GenerateCooldownBar_SecondaryBar_ColorSwitch:
 
 Utility_GenerateCooldownBar_Test:
   Skills:
-  - skill:Utility_GenerateCooldownBar{value=2;maxvalue=10;segments=21;segmentstring="|";startstring="&8[";startcolor=&c;colorswitch="&7";endstring="&8]&r";centervalue=&a[hello]} @self
+  - skill:Utility_GenerateCooldownBar{value=2;maxvalue=10;segments=21;segmentstring="|";startstring="&8[";startcolor=&c;colorswitch="&7";endstring="&8]&r";centervalue= &a[hello] } @self
   - message{m="<skill.var.Utility_GenerateCooldownBar>"} @self
