@@ -4,15 +4,17 @@ A couple of QOL features for all your MythicMobs needs.
 
 ## List of implemented features
 
-### Mobs
+### Items
+- [Generator](/Items/Generator/Generator.yml)
 
-- [MobBasedSpawner](/Mobs/MobBasedSpawner)
+
+### Mobs
+- [MobBasedSpawner](/Mobs/MobBasedSpawner/MobBasedSpawner.yml)
 - [Templates](/Mobs/Templates)
   - [Parrot](/Mobs/Templates/Parrot.yml)
   - [Bee](/Mobs/Templates/Bee.yml)
 
 ### Skills
-
 - [DataStorage](/Skills/DataStorage)
   - [Tables](/Skills/DataStorage/Tables/Tables.yml)
 - [ForceLeash](/Skills/ForceLeash/ForceLeash.yml)
@@ -21,8 +23,7 @@ A couple of QOL features for all your MythicMobs needs.
 - [ItemStack](/Skills/ItemStack/ItemStack.yml)
 - [MobFixes](/Skills/MobFixes)
   - [ParrotFix](/Skills/MobFixes/ParrotFix.yml)
-- [MountManager](/Skills/MountManager)
-  - [MEG Mount Manager](/Skills/MountManager/MountManager_MEG.yml)
+- [MountManager](/Skills/MountManager/MountManager.yml)
 - [Relocation](/Skills/Relocation)
   - [Align](/Skills/Relocation/Align.yml)
   - [TeleportCloser](/Skills/Relocation/TeleportCloser.yml)
@@ -34,4 +35,4 @@ A couple of QOL features for all your MythicMobs needs.
   - [GenerateProgressBar](/Skills/Strings/GenerateProgressBar)
     - [GenerateProgressBar](/Skills/Strings/GenerateProgressBar/GenerateProgressBar.yml)
     - [GenerateCooldownBar](/Skills/Strings/GenerateProgressBar/GenerateCooldownBar.yml)
-- [ToggleAI](/Skills/ToggleAI)
+- [ToggleAI](/Skills/ToggleAI/ToggleAI.yml)

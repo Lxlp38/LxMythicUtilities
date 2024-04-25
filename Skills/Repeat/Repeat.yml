@@ -7,6 +7,11 @@
 #                            __/ |       
 #                           |___/        
 #
+# ATTENTION:
+# With MM version 5.6.2 allowing to use a value of 0 for the repeatInterval universal attribute, this metaskill has lost most of its uses.
+# Still, if for whatever reason the repeatInterval does not work for you for whatever reason, this might still be worth a shot
+#
+#
 # Allows to repeat a skill a determined amount of times during a single tick.
 # Resonates quite nicely with the repeat and repeatInterval general attributes, allowing to execute a skill multiple times per tick for multiple ticks
 #
@@ -17,6 +22,7 @@
 # Example Usage:
 # - skill:Utility_Skill_Repeat{repeatskill=ExampleSkill;i=10}
 # - skill:Utility_Skill_Repeat{repeatskill=ExampleSkill;i=10;repeat=4;repeatInterval=10}
+
 
 
 #     _____   _      _   _   _       

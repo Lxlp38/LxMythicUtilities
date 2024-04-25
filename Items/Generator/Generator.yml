@@ -1,0 +1,44 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# A furniture that accumulates resources over time, and then gives them to whoever clicked it. The classic "mines" in games, so to speak.
+#
+# Works when the server is offline, too.
+#
+# This is because the value of the resources does not increase onTick, but the furniture simply stores the time at which it was last interacted with, and when it needs
+# to give out more resources, it simply calculates the delta time between these two points in time and updates its own
+#
+# There are a couple of scoreboard values associated with the furniture's UUID you can change to custommize it
+# - GeneratorFurniture_GenerationPerMinute --> How much resources are generated each elapsed minute
+# - GeneratorFurniture_GenerationPerMinute_Factor --> The above will be divided by this number, in order to allow for float values
+# - GeneratorFurniture_Capacity --> the maximum amount of resources that can be generated
+#
+# You can then use the generatedamount skill scoped variable to fetch the amount of generated resources onInteract
+
+GeneratorFurniture:
+  Id: REDSTONE
+  Type: FURNITURE
+  Furniture:
+    Health: 1
+  FurnitureSkills:
+  - skill{s=[
+    - skill:GetEpoch @self
+    - settargetscore{o=GeneratorFurniture_CheckTime;value=<skill.var.time>}
+    - settargetscore{o=GeneratorFurniture_GenerationPerMinute;value=60}
+    - settargetscore{o=GeneratorFurniture_GenerationPerMinute_Factor;value=1}
+    - settargetscore{o=GeneratorFurniture_Capacity;value=10}
+    ]} @self ~onBlockPlace
+  - skill{s=[
+    - skill:GetEpoch @self
+    - setvariable{var=generatedamount;type=FLOAT;
+      val=min(((<skill.var.time>-<caster.score.GeneratorFurniture_CheckTime>)/60)*(<caster.score.GeneratorFurniture_GenerationPerMinute>/<caster.score.GeneratorFurniture_GenerationPerMinute_Factor>),<caster.score.GeneratorFurniture_Capacity>)
+      } @self
+    - settargetscore{o=GeneratorFurniture_CheckTime;value=<skill.var.time>} @self
+    - message{m=<skill.var.generatedamount>}
+    ]} @trigger ~onInteract

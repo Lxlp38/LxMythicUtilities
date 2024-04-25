@@ -1,0 +1,82 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+#
+# Returns the (more or less) current epoch in the epoch_time skill scoped variable.
+# Beware: this is NOT the exact epoch, as only the current year is checked against leap years, and other years are just an extimation
+#
+# So, in essence: if you need to check something like a delta time, this is good!
+# If you need this to be consistent with the real epoch, this is bad!
+#
+# Needs the Server papi extension
+#
+# Example:
+# - skill:GetEpoch @self
+# - message{m="<skill.var.epoch_time>"} @self
+
+
+
+
+#     _____   _      _   _   _       
+#    / ____| | |    (_) | | | |      
+#   | (___   | | __  _  | | | |  ___ 
+#    \___ \  | |/ / | | | | | | / __|
+#    ____) | |   <  | | | | | | \__ \
+#   |_____/  |_|\_\ |_| |_| |_| |___/
+#
+GetEpoch:
+  Skills:
+  - setvariable{var=epoch_time;val=( %server_time_Y% - 1970)*31556926} @self
+  - skill:GetEpoch_Month @self
+  - setvariable{var=epoch_time;val=<skill.var.epoch_time>+(<global.var.epoch_month>*86400)} @self
+  - setvariable{var=epoch_time;val=<skill.var.epoch_time>+(%server_time_H%*3600)} @self
+  - setvariable{var=epoch_time;val=<skill.var.epoch_time>+(%server_time_m%*60)} @self
+  - setvariable{var=epoch_time;val=<skill.var.epoch_time>+(%server_time_s%)} @self
+
+
+GetEpoch_Month:
+  Skills:
+  - switch{condition=stringequals{v1=%server_time_M%;v2=<case>};cases=
+      case 1=[
+          - setvariable{var=global.epoch_month;val=0} @self
+        ]
+      case 2=[
+          - setvariable{var=global.epoch_month;val=31} @self
+        ]
+      case 3=[
+          - setvariable{var=global.epoch_month;val=59} @self
+        ]
+      case 4=[
+          - setvariable{var=global.epoch_month;val=90} @self
+        ]
+      case 5=[
+          - setvariable{var=global.epoch_month;val=120} @self
+        ]
+      case 6=[
+          - setvariable{var=global.epoch_month;val=151} @self
+        ]
+      case 7=[
+          - setvariable{var=global.epoch_month;val=181} @self
+        ]
+      case 9=[
+          - setvariable{var=global.epoch_month;val=212} @self
+        ]
+      case 9=[
+          - setvariable{var=global.epoch_month;val=243} @self
+        ]
+      case 10=[
+          - setvariable{var=global.epoch_month;val=273} @self
+        ]
+      case 11=[
+          - setvariable{var=global.epoch_month;val=304} @self
+        ]
+      case 12=[
+          - setvariable{var=global.epoch_month;val=334} @self
+        ]
+    } @self
+  - variableadd{var=global.epoch_month;a=(((%server_time_YYYY% % 4) == 0 )*(1-((%server_time_YYYY% % 100) == 0 )) + ((%server_time_YYYY% % 400) == 0) > 0) * (%server_time_M% > 2)} @self
