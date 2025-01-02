@@ -9,7 +9,10 @@ A couple of QOL features for all your MythicMobs needs.
 
 
 ### Mobs
-- [MobBasedSpawner](/Mobs/MobBasedSpawner/MobBasedSpawner.yml)
+- [MobBasedSpawner](/Mobs/MobBasedSpawner)
+  - [Simple](/Mobs/MobBasedSpawner/MobBasedSpawner.yml)
+  - [Advanced](/Mobs/MobBasedSpawner/AdvancedMobBasedSpawner.yml)
+    - [Skill File](/Skills/MobBasedSpawner/AdvancedMobBasedSpawner_Skills.yml)
 - [Templates](/Mobs/Templates)
   - [Parrot](/Mobs/Templates/Parrot.yml)
   - [Bee](/Mobs/Templates/Bee.yml)
@@ -24,6 +27,7 @@ A couple of QOL features for all your MythicMobs needs.
 - [ItemStack](/Skills/ItemStack/ItemStack.yml)
 - [MobFixes](/Skills/MobFixes)
   - [ParrotFix](/Skills/MobFixes/ParrotFix.yml)
+- [MobBasedSpawner Skills](/Skills/MobBasedSpawner)
 - [MountManager](/Skills/MountManager/MountManager.yml)
 - [Relocation](/Skills/Relocation)
   - [Align](/Skills/Relocation/Align.yml)

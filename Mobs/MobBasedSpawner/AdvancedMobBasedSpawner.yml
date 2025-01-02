@@ -1,0 +1,105 @@
+#    _    _                              
+#   | |  | |                             
+#   | |  | |  ___    __ _    __ _    ___ 
+#   | |  | | / __|  / _` |  / _` |  / _ \
+#   | |__| | \__ \ | (_| | | (_| | |  __/
+#    \____/  |___/  \__,_|  \__, |  \___|
+#                            __/ |       
+#                           |___/        
+# The following is an advanced version of the MobBasedSpawner, which allows for more control over the spawned mobs and the spawner itself.
+# This configuration was made a year before the making of this commit for a commission, and is only now being added to the repository. 
+#
+# To use this resource you can reference the variable comments in the main AdvancedMobBasedSpawner mob and the Example_Spawner mob you can find below.
+# The Skill File can be found in the /Skills/MobBasedSpawner/AdvancedMobBasedSpawner_Skills.yml file.
+#
+# Keep in mind: this is a fairly resource-intensive resource, and should be used in moderation.
+
+AdvancedMobBasedSpawner:
+  Type: ARMOR_STAND
+  Variables:
+    cooldown: int/100 # The cooldown of the spawner
+    warmup: int/20 # The warmup of the spawner
+    mobcap: int/3 # The maximum amount of mobs the spawner will have spawned at one time
+    leashrange: int/20 # The maximum distance a spawned mob can distance itself from the spawner before the leashskill is triggered against it
+    leashskill: AdvancedMobBasedSpawner_LeashSkill_Default # The metaskill triggered against spawned mobs that are too far away
+    childrentimerskill: AdvancedMobBasedSpawner_ChildrenTimerSkill_Default # The metaskill to make the children execute every tick
+    childrendeathskill: AdvancedMobBasedSpawner_ChildrenDeathSkill_Default # The metaskill executed once a children mob dies. The caster is the dying mob.
+    tickconditions: AdvancedMobBasedSpawner_TickConditions_Default # The metaskill that determined if the spawner should tick or not, by setting the relevant "cantick" skill scoped variable
+    summonskill: AdvancedMobBasedSpawner_SummonSkill # The metaskill that is executed when the spawner ends its cooldown
+    #disablerange: 5 # The range in which the spawned entities will have their combat behavior disabled, if they inherit the SingleCombat Template
+    #disableduration: 10 # The duration of the disabilitation. As long as the mob remains in the relevant range, it will continue to be disabled, but if it exits, this is the extra duration
+  Options:
+    Marker: true
+    Invisible: true
+    Small: true
+    Despawn: persistent
+  Faction: ExampleSpawner
+  Skills:
+  - setvariable{var=caster.cooldownmax;val=<caster.var.cooldown>;save=true} @self ~onSpawn
+  - setvariable{var=caster.warmupmax;val=<caster.var.warmup>;save=true} @self ~onSpawn
+
+  - skill{s=[
+    
+    - vskill{s=<caster.var.tickconditions|AdvancedMobBasedSpawner_TickConditions_Default>}
+    - skill{s=[
+      
+      - skill{s=[
+        - variablesubtract{var=caster.cooldown;amount=1} @self
+        - skill{cd=1;s=[
+          - vskill{s=<caster.var.summonskill>} @selflocation
+          - setvariable{var=caster.cooldown;val=<caster.var.cooldownmax|100>;save=true}
+          - setvariable{var=caster.warmup;val=<caster.var.warmupmax|20>;save=true}
+          - delay 1
+          - skill{s=AdvancedMobBasedSpawner_ChildrenDeathSkill_Handler} @Children
+          ]} ?variableinrange{var=caster.cooldown;val=<1}
+        ]} ?variableinrange{var=caster.warmup;val=<1}
+      
+      - variablesubtract{var=caster.warmup;amount=1} @self ?!variableinrange{var=caster.warmup;val=<1} ?variableinrange{var=caster.mobcap;val=><caster.children.size>}
+      - setvariable{var=caster.warmup;val=<caster.var.warmupmax|20>;save=true} ?!variableinrange{var=caster.mobcap;val=><caster.children.size>} ?!variableequals{var=caster.warmup;val=<caster.warmupmax|20>}
+      ]} ?variableisset{var=skill.cantick}
+    
+    - skill{s=[
+      - holo{text="<caster.var.cooldown> <caster.var.warmup> <caster.children.size>";stay=2} @selflocation{y=1}
+      - skill{s=AdvancedMobBasedSpawner_ChildrenDistance_Parser}
+      - vskill{s=<caster.var.childrentimerskill|AdvancedMobBasedSpawner_ChildrenTimerSkill_Default>}
+      ]} @Children
+
+    ]} @self ~onTimer:1
+
+
+
+#    ______                           _           
+#   |  ____|                         | |          
+#   | |__  __  ____ _ _ __ ___  _ __ | | ___  ___ 
+#   |  __| \ \/ / _` | '_ ` _ \| '_ \| |/ _ \/ __|
+#   | |____ >  < (_| | | | | | | |_) | |  __/\__ \
+#   |______/_/\_\__,_|_| |_| |_| .__/|_|\___||___/
+#                              | |                
+#                              |_|                
+
+Example_Spawner:
+  Template: AdvancedMobBasedSpawner
+  Variables:
+    cooldown: int/100
+    warmup: int/20
+    mobcap: int/3
+    leashrange: int/20
+    leashskill: AdvancedMobBasedSpawner_LeashSkill_Return
+    childrentimerskill: AdvancedMobBasedSpawner_ChildrenTimerSkill_ReturnFromWater
+    tickconditions: AdvancedMobBasedSpawner_TickConditions_Default
+    summonskill: AdvancedMobBasedSpawner_SummonSkill
+    childrendeathskill: AdvancedMobBasedSpawner_ChildrenDeathSkill_Default
+
+
+Example_Spawner_Crabs:
+  Template: AdvancedMobBasedSpawner
+  Variables:
+    cooldown: int/100
+    warmup: int/20
+    mobcap: int/3
+    leashrange: int/20
+    leashskill: AdvancedMobBasedSpawner_LeashSkill_Return
+    childrentimerskill: AdvancedMobBasedSpawner_ChildrenTimerSkill_ReturnFromWater
+    tickconditions: AdvancedMobBasedSpawner_TickConditions_Default
+    summonskill: AdvancedMobBasedSpawner_SummonSkill_Crab
+    childrendeathskill: AdvancedMobBasedSpawner_ChildrenDeathSkill_Default

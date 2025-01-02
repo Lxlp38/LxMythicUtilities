@@ -1,0 +1,98 @@
+AdvancedMobBasedSpawner_SummonSkill_Default:
+  Skills:
+  - vskill{v=<caster.name>_Mob}
+AdvancedMobBasedSpawner_LeashSkill_Default:
+  Skills:
+  - e:p @Line
+AdvancedMobBasedSpawner_TickConditions_Default:
+  Conditions:
+  - playersinradius{r=10;a=>0} true
+  Skills:
+  - setvariable{var=skill.cantick;val=1} @self
+AdvancedMobBasedSpawner_ChildrenTimerSkill_Default:
+  Skills: []
+AdvancedMobBasedSpawner_ChildrenDeathSkill_Default:
+  Skills:
+  - e:p{hs=0.5;vs=0.5;y=1} @self
+
+
+
+
+
+AdvancedMobBasedSpawner_ChildrenDistance_Parser:
+  Skills:
+  - sudoskill{cat=true;s=[
+    - sudoskill{cat=true;s=[
+      - skill:Utility_GetDistance @trigger
+      - vskill{s=<caster.var.leashskill|AdvancedMobBasedSpawner_LeashSkill_Default>} @trigger ?variableinrange{var=skill.Utility_GetDistance;val=><caster.var.leashrange|20>}
+      ]} @trigger{targetarmorstands=true}
+    ]}
+  #- aura{auraName=Template_SingleCombat_Disabled;d=<caster.var.disableduration|10>} @trigger ?variableinrange{var=skill.Utility_GetDistance;val=<<caster.var.disablerange|0>}
+
+AdvancedMobBasedSpawner_DisableChildren:
+  Skills:
+  - sudoskill{cat=true;s=[
+    - sudoskill{cat=true;s=[
+      - skill:Utility_GetDistance @trigger
+      ]} @trigger
+    ]}
+
+AdvancedMobBasedSpawner_ChildrenDeathSkill_Handler:
+  TargetConditions:
+  - hasaura{auraName=childrendeathskill} false
+  Skills:
+  - setvariable{var=skill.deathskill;type=STRING;val=<caster.var.childrendeathskill>} @self
+  - sudoskill{s=[
+    - onDeath{auraName=childrendeathskill;d=9999;i=1000;
+      onTick=[
+        - aura{auraName=childrendeathskill}
+      ];
+      od=[
+        - vskill{s=<skill.var.deathskill>} @self
+      ];
+      }
+    ]}
+
+
+
+
+#    ______                           _           
+#   |  ____|                         | |          
+#   | |__  __  ____ _ _ __ ___  _ __ | | ___  ___ 
+#   |  __| \ \/ / _` | '_ ` _ \| '_ \| |/ _ \/ __|
+#   | |____ >  < (_| | | | | | | |_) | |  __/\__ \
+#   |______/_/\_\__,_|_| |_| |_| .__/|_|\___||___/
+#                              | |                
+#                              |_|                
+
+
+AdvancedMobBasedSpawner_SummonSkill:
+  Skills:
+  #- summon{t=Example_SingleCombat} @self
+
+
+AdvancedMobBasedSpawner_LeashSkill_Return:
+  Skills:
+  - sudoskill{cat=true;s=[
+    - e:p
+    - onDamaged{auraName=Template_SingleCombat_Disabled;ce=true;d=120} @self
+    <#>- skill:Template_SingleCombat_DropCombat @self
+    - healpercent{m=1} @self
+    - delay 1
+    - goto @trigger{targetarmorstands=true}
+    ]}
+
+AdvancedMobBasedSpawner_ChildrenTimerSkill_ReturnFromWater:
+  TargetConditions:
+  - inblock{b=WATER} true
+  Skills:
+  - skill:AdvancedMobBasedSpawner_LeashSkill_Return
+
+AdvancedMobBasedSpawner_ChildrenDeathSkill_SpawnGold:
+  Skills:
+  #- summon{t=dungeon_goldpile10} @self
+
+
+AdvancedMobBasedSpawner_SummonSkill_Crab:
+  Skills:
+  #- summon{t=piratepack_crab}
