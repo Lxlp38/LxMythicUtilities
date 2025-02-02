@@ -1,0 +1,694 @@
+[
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "TableMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_Table"
+        ],
+        "description": "Creates and handles a table-like data structure.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/DataStorage/Tables/Tables.yml",
+        "attributes": [
+            {
+                "name": [
+                    "table"
+                ],
+                "description": "The table to be used.",
+                "type": "String",
+                "default_value": "default"
+            },
+            {
+                "name": [
+                    "mode"
+                ],
+                "description": "The mode to be used.",
+                "type": "String",
+                "enum": "SET,GET,REMOVE,RESIZE,FOREACH,GETFIRSTKEY,MOVETOLAST,GETKEYATINDEX,SORT,EXCHANGE,CLEAR,COMPARE",
+                "default_value": "NULL"
+            },
+            {
+                "name": [
+                    "key"
+                ],
+                "description": "The key to be used in the table.",
+                "type": "String",
+                "default_value": "NULL"
+            },
+            {
+                "name": [
+                    "value"
+                ],
+                "description": "The value to be used in the table.",
+                "type": "String",
+                "default_value": "NULL"
+            },
+            {
+                "name": [
+                    "index"
+                ],
+                "description": "The index to use, if the operation supports it.",
+                "type": "Integer",
+                "default_value": -1
+            },
+            {
+                "name": [
+                    "elementskill"
+                ],
+                "description": "The skill to execute for each element of the table.",
+                "type": "String",
+                "default_value": "NULL"
+            },
+            {
+                "name": [
+                    "key1"
+                ],
+                "description": "The first key to be used in the compare or exchange operation.",
+                "type": "String",
+                "default_value": "NULL"
+            },
+            {
+                "name": [
+                    "key2"
+                ],
+                "description": "The second key to be used in the compare or exchange operation.",
+                "type": "String",
+                "default_value": "NULL"
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "GetEpochMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:GetEpoch"
+        ],
+        "description": "Retrieves the current epoch time.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/Epoch/GetEpoch.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "ForceLeashSetMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_ForceLeash_Set"
+        ],
+        "description": "This metaskill will forcefully leash the caster of the mechanic to the inherited target.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/ForceLeash/ForceLeash.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "ForceLeashRemoveMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_ForceLeash_Remove"
+        ],
+        "description": "This metaskill will remove the forcefully applied leash",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/ForceLeash/ForceLeash.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "ForceLeashFrameworkMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_ForceLeashFramework"
+        ],
+        "description": "This metaskill is an already configured framework to handle the leashing of an entity.\nExecute it ~onInteract",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/ForceLeash/ForceLeash.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "ForceLeashFrameworkMEGMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_ForceLeashFramework_MEG"
+        ],
+        "description": "This metaskill is a configured framework to handle the leashing of a MEG modeled entity. Execute this ~onInteract",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/ForceLeash/ForceLeash.yml",
+        "attributes": [
+            {
+                "name": [
+                    "mid"
+                ],
+                "description": "The modelid of the casting modeled entity.",
+                "type": "String",
+                "default_value": "NULL"
+            },
+            {
+                "name": [
+                    "pid"
+                ],
+                "description": "The partid of the leash bone you want to graphically see leashed.",
+                "type": "String",
+                "default_value": "NULL"
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityFreezeMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_Freeze"
+        ],
+        "description": "This metaskill allows you to freeze a player for a set amount of ticks.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/Freeze/Freeze.yml",
+        "attributes": [
+            {
+                "name": [
+                    "duration"
+                ],
+                "description": "The duration of the freeze effect.",
+                "type": "Integer",
+                "default_value": 100
+            },
+            {
+                "name": [
+                    "damage"
+                ],
+                "description": "The damage inflicted every damage instance.",
+                "type": "Integer",
+                "default_value": 1
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityGetDistanceMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_GetDistance"
+        ],
+        "description": "Gets the actual distance between the caster and the target, and stores it inside <skill.var.Utility_GetDistance>.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/GetDistance/GetDistance.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityGetDistanceRawMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_GetDistance_Raw"
+        ],
+        "description": "Gets the distance between the caster and the target without squaring it, and stores it inside <skill.var.Utility_GetDistance_Raw>. Useful for performance concerns.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/GetDistance/GetDistanceRaw.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityGetDistanceXMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_GetDistance_x"
+        ],
+        "description": "Gets the distance between the caster and the target on the x axis and stores it inside <skill.var.Utility_GetDistance_x>.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/GetDistance/GetDistanceX.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityGetDistanceYMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_GetDistance_y"
+        ],
+        "description": "Gets the distance between the caster and the target on the y axis and stores it inside <skill.var.Utility_GetDistance_y>.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/GetDistance/GetDistanceY.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityGetDistanceZMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_GetDistance_z"
+        ],
+        "description": "Gets the distance between the caster and the target on the z axis and stores it inside <skill.var.Utility_GetDistance_z>.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/GetDistance/GetDistanceZ.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityGetDistanceWeightedMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_GetDistance_Weighted"
+        ],
+        "description": "Gets the distance between the caster and the target and stores it inside <skill.var.Utility_GetDistance_Weighted>. The distance on each axis is first multiplied by a skill parameter (the weight).",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/GetDistance/GetDistanceWeighted.yml",
+        "attributes": [
+            {
+                "name": [
+                    "x"
+                ],
+                "description": "The value for which the x distance will be multiplied.",
+                "type": "Float",
+                "default_value": 1.0
+            },
+            {
+                "name": [
+                    "y"
+                ],
+                "description": "The value for which the y distance will be multiplied.",
+                "type": "Float",
+                "default_value": 1.0
+            },
+            {
+                "name": [
+                    "z"
+                ],
+                "description": "The value for which the z distance will be multiplied.",
+                "type": "Float",
+                "default_value": 1.0
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityIncreaseItemStackMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_IncreaseItemStack"
+        ],
+        "description": "Increases the amount of items of the dropped item entity by 1.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/ItemStack/ItemStack.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityDecreaseItemStackMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_DecreaseItemStack"
+        ],
+        "description": "Decreases the amount of items of the dropped item entity by 1.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/ItemStack/ItemStack.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityChangeItemStackMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_ChangeItemStack"
+        ],
+        "description": "Changes the amount of items of the dropped item entity. The amount and the operation can be specified.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/ItemStack/ItemStack.yml",
+        "attributes": [
+            {
+                "name": [
+                    "amount"
+                ],
+                "description": "The amount of the operation.",
+                "type": "Integer",
+                "default_value": 1
+            },
+            {
+                "name": [
+                    "operation"
+                ],
+                "description": "The type of operation. Can be +, -, *, /, %",
+                "type": "String",
+                "default_value": "+",
+                "enum": "+,-,*,/,%"
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "MountEventManagerMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:MountEventManager"
+        ],
+        "description": "Simulates onMount and onDismount events for an entity.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/MountManager/MountManager.yml",
+        "attributes": [
+            {
+                "name": [
+                    "mount"
+                ],
+                "description": "The metaskill to execute when the entity is mounted.",
+                "type": "String",
+                "default_value": "MountEventManager_MountEvent"
+            },
+            {
+                "name": [
+                    "dismount"
+                ],
+                "description": "The metaskill to execute when the entity is dismounted.",
+                "type": "String",
+                "default_value": "MountEventManager_DismountEvent"
+            },
+            {
+                "name": [
+                    "d"
+                ],
+                "description": "The duration used as the onTimer interval.",
+                "type": "Integer",
+                "default_value": 5
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityRelocationAlignMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_Relocation_Align"
+        ],
+        "description": "This skill allows to lower a mob until it is aligned with a given plane.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/Relocation/Align.yml",
+        "attributes": [
+            {
+                "name": [
+                    "m"
+                ],
+                "description": "The mode of the Alignment. Can be GROUND or SEAFLOOR.",
+                "type": "String",
+                "enum": "GROUND,SEAFLOOR",
+                "default_value": "GROUND"
+            },
+            {
+                "name": [
+                    "p"
+                ],
+                "description": "The number of blocks the entity will be moved on the y axis every iteration. Using a positive value will invert the effect.",
+                "type": "Integer",
+                "default_value": -1
+            },
+            {
+                "name": [
+                    "d"
+                ],
+                "description": "The number of ticks to wait between each iteration.",
+                "type": "Integer",
+                "default_value": 0
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityTeleportCloserMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_TeleportCloser"
+        ],
+        "description": "Teleports the caster closer to the inherited location by a specified distance.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/Relocation/TeleportCloser.yml",
+        "attributes": [
+            {
+                "name": [
+                    "distance"
+                ],
+                "description": "The distance to teleport the caster closer to the target location.",
+                "type": "Float",
+                "default_value": 1.0
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityStringFormatHealthMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_String_FormatHealth"
+        ],
+        "description": "Formats the target's health into a text format and saves it inside <skill.var.return>.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/Strings/Format/FormatHealth.yml",
+        "attributes": []
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityStringFormatValueMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_String_FormatValue"
+        ],
+        "description": "Formats a number into a more succinct text format and saves it inside <skill.var.return>.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/Strings/Format/FormatValue.yml",
+        "attributes": [
+            {
+                "name": [
+                    "value"
+                ],
+                "description": "The number to format.",
+                "type": "Float",
+                "default_value": 0.0
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityStringGenerateProgressBarMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_String_GenerateProgressBar"
+        ],
+        "description": "Generates a progress bar string based on the given parameters.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/Strings/GenerateProgressBar/GenerateProgressBar.yml",
+        "attributes": [
+            {
+                "name": [
+                    "value"
+                ],
+                "description": "The value of the progress bar.",
+                "type": "Integer",
+                "default_value": 0
+            },
+            {
+                "name": [
+                    "maxvalue"
+                ],
+                "description": "The maximum value that can be reached.",
+                "type": "Integer",
+                "default_value": 100
+            },
+            {
+                "name": [
+                    "segments"
+                ],
+                "description": "The number of segments in the progress bar.",
+                "type": "Integer",
+                "default_value": 10
+            },
+            {
+                "name": [
+                    "segmentstring"
+                ],
+                "description": "The string used to represent a single segment.",
+                "type": "String",
+                "default_value": "|"
+            },
+            {
+                "name": [
+                    "startstring"
+                ],
+                "description": "The string used at the start of the progress bar.",
+                "type": "String",
+                "default_value": "["
+            },
+            {
+                "name": [
+                    "startcolor"
+                ],
+                "description": "The color code that will be put at the start.",
+                "type": "String",
+                "default_value": "&a"
+            },
+            {
+                "name": [
+                    "endstring"
+                ],
+                "description": "The string used at the end of the progress bar.",
+                "type": "String",
+                "default_value": "]"
+            },
+            {
+                "name": [
+                    "colorswitch"
+                ],
+                "description": "The string to be applied before the segment when the color needs to change.",
+                "type": "String",
+                "default_value": "&c"
+            },
+            {
+                "name": [
+                    "colorswitchmath"
+                ],
+                "description": "An additional operation to determine where to apply a colorswitch.",
+                "type": "String",
+                "default_value": "ceil"
+            },
+            {
+                "name": [
+                    "extra"
+                ],
+                "description": "If set to any non-0 value, extra variables will be generated.",
+                "type": "Integer",
+                "default_value": 0
+            },
+            {
+                "name": [
+                    "iterationskill"
+                ],
+                "description": "The metaskill to run for each iteration.",
+                "type": "String",
+                "default_value": "NULL"
+            },
+            {
+                "name": [
+                    "colorswitchskill"
+                ],
+                "description": "The metaskill to run when the colorswitch is applied.",
+                "type": "String",
+                "default_value": "NULL"
+            }
+        ]
+    },
+    {
+        "plugin": "LxMythicUtilities",
+        "class": "UtilityGenerateCooldownBarMechanic",
+        "extends": "SkillMechanic",
+        "implements": [],
+        "name": [
+            "skill:Utility_GenerateCooldownBar"
+        ],
+        "description": "Generates a cooldown bar string based on the given parameters and stores it inside <skill.var.Utility_GenerateCooldownBar>.",
+        "link": "https://github.com/Lxlp38/LxMythicUtilities/blob/main/Skills/Strings/GenerateProgressBar/GenerateCooldownBar.yml",
+        "attributes": [
+            {
+                "name": [
+                    "centervalue"
+                ],
+                "description": "The string to display at the center of the generated string.",
+                "type": "String",
+                "default_value": "NULL"
+            },
+            {
+                "name": [
+                    "value"
+                ],
+                "description": "The value of the progress bar.",
+                "type": "Integer",
+                "default_value": 0
+            },
+            {
+                "name": [
+                    "maxvalue"
+                ],
+                "description": "The maximum value that can be reached.",
+                "type": "Integer",
+                "default_value": 100
+            },
+            {
+                "name": [
+                    "segments"
+                ],
+                "description": "The number of segments in the progress bar.",
+                "type": "Integer",
+                "default_value": 10
+            },
+            {
+                "name": [
+                    "segmentstring"
+                ],
+                "description": "The string used to represent a single segment.",
+                "type": "String",
+                "default_value": "|"
+            },
+            {
+                "name": [
+                    "startstring"
+                ],
+                "description": "The string used at the start of the progress bar.",
+                "type": "String",
+                "default_value": "["
+            },
+            {
+                "name": [
+                    "startcolor"
+                ],
+                "description": "The color code that will be put at the start.",
+                "type": "String",
+                "default_value": "&a"
+            },
+            {
+                "name": [
+                    "endstring"
+                ],
+                "description": "The string used at the end of the progress bar.",
+                "type": "String",
+                "default_value": "]"
+            },
+            {
+                "name": [
+                    "colorswitch"
+                ],
+                "description": "The string to be applied before the segment when the color needs to change.",
+                "type": "String",
+                "default_value": "&c"
+            },
+            {
+                "name": [
+                    "colorswitchmath"
+                ],
+                "description": "An additional operation to determine where to apply a colorswitch.",
+                "type": "String",
+                "default_value": "ceil"
+            },
+            {
+                "name": [
+                    "extra"
+                ],
+                "description": "If set to any non-0 value, extra variables will be generated.",
+                "type": "Integer",
+                "default_value": 0
+            },
+            {
+                "name": [
+                    "iterationskill"
+                ],
+                "description": "The metaskill to run for each iteration.",
+                "type": "String",
+                "default_value": "NULL"
+            },
+            {
+                "name": [
+                    "colorswitchskill"
+                ],
+                "description": "The metaskill to run when the colorswitch is applied.",
+                "type": "String",
+                "default_value": "NULL"
+            }
+        ]
+    }
+
+    
+]
