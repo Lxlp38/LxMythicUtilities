@@ -24,7 +24,7 @@
                 ],
                 "description": "The mode to be used.",
                 "type": "String",
-                "enum": "SET,GET,REMOVE,RESIZE,FOREACH,GETFIRSTKEY,MOVETOLAST,GETKEYATINDEX,SORT,EXCHANGE,CLEAR,COMPARE",
+                "enum": "LxMythicUtilities_Enum_TableMechanic_Mode",
                 "default_value": "NULL"
             },
             {
@@ -330,7 +330,7 @@
                 "description": "The type of operation. Can be +, -, *, /, %",
                 "type": "String",
                 "default_value": "+",
-                "enum": "+,-,*,/,%"
+                "enum": "LxMythicUtilities_Enum_UtilityChangeItemStack_Operation"
             }
         ]
     },
@@ -388,7 +388,7 @@
                 ],
                 "description": "The mode of the Alignment. Can be GROUND or SEAFLOOR.",
                 "type": "String",
-                "enum": "GROUND,SEAFLOOR",
+                "enum": "LxMythicUtilities_Enum_UtilityRelocationAlign_Mode",
                 "default_value": "GROUND"
             },
             {

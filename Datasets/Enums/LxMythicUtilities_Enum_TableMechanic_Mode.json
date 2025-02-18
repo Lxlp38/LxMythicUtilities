@@ -1,0 +1,38 @@
+{
+    "SET": {
+        "description": "Set a key to a value"
+    },
+    "GET": {
+        "description": "Get the value of a key"
+    },
+    "REMOVE": {
+        "description": "Remove a key"
+    },
+    "RESIZE": {
+        "description": "Resize the data structure"
+    },
+    "FOREACH": {
+        "description": "Iterate over each key-value pair"
+    },
+    "GETFIRSTKEY": {
+        "description": "Get the first key"
+    },
+    "MOVETOLAST": {
+        "description": "Move a key to the last position"
+    },
+    "GETKEYATINDEX": {
+        "description": "Get the key at a specific index"
+    },
+    "SORT": {
+        "description": "Sort the keys"
+    },
+    "EXCHANGE": {
+        "description": "Exchange the values of two keys"
+    },
+    "CLEAR": {
+        "description": "Clear all keys"
+    },
+    "COMPARE": {
+        "description": "Compare two keys"
+    }
+}
