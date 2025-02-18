@@ -2,21 +2,21 @@
     {
         "elementType": "Mechanic",
         "source": "Link",
-        "pathOrUrl": "https://raw.githubusercontent.com/Lxlp38/LxMythicUtilities/refs/heads/main/Datasets/Mechanics/LxMythicUtilitiesMechanics.json"
+        "pathOrUrl": "./Mechanics/LxMythicUtilitiesMechanics.json"
     },
     {
         "elementType": "Enum",
         "source": "Link",
-        "pathOrUrl": "https://raw.githubusercontent.com/Lxlp38/LxMythicUtilities/refs/heads/main/Datasets/Enums/LxMythicUtilities_Enum_TableMechanic_Mode.json"
+        "pathOrUrl": "./Enums/LxMythicUtilities_Enum_TableMechanic_Mode.json"
     },
     {
         "elementType": "Enum",
         "source": "Link",
-        "pathOrUrl": "https://raw.githubusercontent.com/Lxlp38/LxMythicUtilities/refs/heads/main/Datasets/Enums/LxMythicUtilities_Enum_UtilityChangeItemStack_Operation.json"
+        "pathOrUrl": "./Enums/LxMythicUtilities_Enum_UtilityChangeItemStack_Operation.json"
     },
     {
         "elementType": "Enum",
         "source": "Link",
-        "pathOrUrl": "https://raw.githubusercontent.com/Lxlp38/LxMythicUtilities/refs/heads/main/Datasets/Enums/LxMythicUtilities_Enum_UtilityRelocationAlign_Mode.json"
+        "pathOrUrl": "./Enums/LxMythicUtilities_Enum_UtilityRelocationAlign_Mode.json"
     }
 ]
